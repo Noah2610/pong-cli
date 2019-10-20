@@ -1,2 +1,6 @@
 /target
 **/*.rs.bk
+
+/bin/util.sh
+/logs
+*.log
