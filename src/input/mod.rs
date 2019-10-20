@@ -21,6 +21,14 @@ impl InputManager {
         }
     }
 
+    pub fn is_pressed(&self, key: InputKey) -> bool {
+        self.pressed.contains(&key)
+    }
+
+    pub fn clear(&mut self) {
+        self.pressed.clear();
+    }
+
     pub fn input(&mut self, key_event: KeyEvent) {
         let key_string = key_event_to_string(key_event);
 
@@ -76,7 +84,7 @@ fn key_event_to_string(key_event: KeyEvent) -> String {
         KeyEvent::Delete     => "Delete".to_string(),
         KeyEvent::Insert     => "Insert".to_string(),
         KeyEvent::F(n)       => format!("F{}", n),
-        KeyEvent::Char(c)    => c.to_string(),
+        KeyEvent::Char(c)    => c.to_lowercase().to_string(),
         KeyEvent::Alt(c)     => format!("Alt+{}", c),
         KeyEvent::Ctrl(c)    => format!("Ctrl+{}", c),
         KeyEvent::Null       => "Null".to_string(),

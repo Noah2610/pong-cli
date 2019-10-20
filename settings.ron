@@ -9,7 +9,7 @@
     ),
 
     bindings: (
-        quit: ["q"],
+        quit: ["q", "Ctrl+c", "Esc"],
         paddle_left: (
             up:   ["w"],
             down: ["s"],

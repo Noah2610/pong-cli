@@ -18,17 +18,20 @@ impl<'a> System<'a> for InputSystem {
         &mut self,
         (terminal_input, mut input_manager, mut running): Self::SystemData,
     ) {
+        input_manager.clear();
+
         for input_event in self
             .input_reader
             .get_or_insert_with(|| terminal_input.read_async())
         {
-            match input_event {
-                InputEvent::Keyboard(key_event) => match key_event {
-                    KeyEvent::Ctrl('c') => running.0 = false,
-                    key => input_manager.input(key),
-                },
-                _ => (),
+            if let InputEvent::Keyboard(key) = input_event {
+                input_manager.input(key);
             }
+        }
+
+        // Quit
+        if input_manager.is_pressed(InputKey::Quit) {
+            running.0 = false;
         }
     }
 }
