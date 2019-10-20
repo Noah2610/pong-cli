@@ -119,7 +119,7 @@ fn create_paddles(world: &mut World) {
         .with(paddle_size.clone())
         .with(Velocity::default())
         .with(Collision::new(CollisionType::Paddle(PaddleSide::Left)))
-        .with(PaddleAi::default())
+        // .with(PaddleAi::default())
         .build();
 
     // Right paddle
