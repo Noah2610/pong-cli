@@ -8,6 +8,7 @@ pub mod prelude {
 }
 
 mod system_prelude {
+    pub use specs::world::Index;
     pub use specs::{
         Entities,
         Entity,

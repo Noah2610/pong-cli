@@ -1,4 +1,5 @@
 pub mod prelude {
+    pub use super::collision::{Collider, Collision, CollisionType};
     pub use super::drawable::Drawable;
     pub use super::paddle::{Paddle, PaddleSide};
     pub use super::position::Position;
@@ -17,6 +18,7 @@ pub mod component_prelude {
     };
 }
 
+mod collision;
 mod drawable;
 mod paddle;
 mod position;

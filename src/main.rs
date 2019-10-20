@@ -92,6 +92,8 @@ fn create_paddles(world: &mut World) {
     world.register::<Size>();
     world.register::<Drawable>();
     world.register::<Velocity>();
+    world.register::<Collider>();
+    world.register::<Collision>();
 
     let settings = (*world.read_resource::<Settings>()).clone();
 
@@ -108,6 +110,7 @@ fn create_paddles(world: &mut World) {
         .with(Position::new(paddle_x, paddle_y))
         .with(paddle_size.clone())
         .with(Velocity::default())
+        .with(Collision::new(CollisionType::Paddle(PaddleSide::Left)))
         .build();
 
     // Right paddle
@@ -121,6 +124,7 @@ fn create_paddles(world: &mut World) {
         ))
         .with(paddle_size.clone())
         .with(Velocity::default())
+        .with(Collision::new(CollisionType::Paddle(PaddleSide::Right)))
         .build();
 }
 
@@ -139,6 +143,8 @@ fn create_ball(world: &mut World) {
         ))
         .with(Size::new(2.0, 2.0))
         .with(Velocity::new(0.5, 0.25))
+        .with(Collision::new(CollisionType::Ball))
+        .with(Collider::default())
         .build();
 }
 
