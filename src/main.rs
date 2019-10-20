@@ -19,7 +19,12 @@ mod resources;
 mod settings;
 mod systems;
 
-const SLEEP_MS: u64 = 1000;
+const SLEEP_MS: u64 = 250;
+
+pub fn flush_stdout() {
+    use std::io::{stdout, Write};
+    stdout().flush().expect("Should flush stdout");
+}
 
 fn main() {
     let (mut world, mut dispatcher) = setup();
@@ -44,6 +49,9 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     let dispatcher = DispatcherBuilder::new()
         .with(InputSystem::default(), "input_system", &[])
         .with(DrawRoomSystem::default(), "draw_room_system", &[])
+        .with(DrawEntitiesSystem::default(), "draw_entities_system", &[
+            "draw_room_system",
+        ])
         .build();
 
     let cursor = TerminalCursor::new();
@@ -63,22 +71,23 @@ fn create_paddles(world: &mut World) {
     use components::prelude::*;
     use specs::Builder;
 
-    // TODO remove
     world.register::<Paddle>();
     world.register::<Position>();
     world.register::<Size>();
+    world.register::<Drawable>();
 
     let settings = (*world.read_resource::<Settings>()).clone();
 
-    let paddle_x = settings.paddles.size.0 * 0.5;
+    let paddle_x = settings.paddle.size.0 * 0.5;
     let paddle_y = settings.room.height as f32 * 0.5;
-    let paddle_size =
-        Size::new(settings.paddles.size.0, settings.paddles.size.1);
+    let paddle_size = Size::new(settings.paddle.size.0, settings.paddle.size.1);
+    let paddle_char = settings.chars.paddle;
 
     // Left paddle
     world
         .create_entity()
         .with(Paddle::new(PaddleSide::Left))
+        .with(Drawable::new(paddle_char))
         .with(Position::new(paddle_x, paddle_y))
         .with(paddle_size.clone())
         .build();
@@ -87,6 +96,7 @@ fn create_paddles(world: &mut World) {
     world
         .create_entity()
         .with(Paddle::new(PaddleSide::Right))
+        .with(Drawable::new(paddle_char))
         .with(Position::new(
             settings.room.width as f32 - paddle_x,
             paddle_y,

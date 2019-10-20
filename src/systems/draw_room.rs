@@ -46,8 +46,3 @@ fn draw_border(settings: &Settings, cursor: &TerminalCursor) {
     cursor.goto(right, bottom).unwrap();
     print!("{}", chars.room_border_corner);
 }
-
-fn flush_stdout() {
-    use std::io::{stdout, Write};
-    stdout().flush().expect("Should flush stdout");
-}

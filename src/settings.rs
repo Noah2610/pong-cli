@@ -1,15 +1,15 @@
 pub mod prelude {
     pub use super::Settings;
     pub use super::SettingsChars;
-    pub use super::SettingsPaddles;
+    pub use super::SettingsPaddle;
     pub use super::SettingsRoom;
 }
 
 #[derive(Clone, Deserialize)]
 pub struct Settings {
-    pub room:    SettingsRoom,
-    pub paddles: SettingsPaddles,
-    pub chars:   SettingsChars,
+    pub room:   SettingsRoom,
+    pub paddle: SettingsPaddle,
+    pub chars:  SettingsChars,
 }
 
 #[derive(Clone, Deserialize)]
@@ -19,7 +19,7 @@ pub struct SettingsRoom {
 }
 
 #[derive(Clone, Deserialize)]
-pub struct SettingsPaddles {
+pub struct SettingsPaddle {
     pub size: (f32, f32),
 }
 
@@ -28,4 +28,5 @@ pub struct SettingsChars {
     pub room_border_vertical:   char,
     pub room_border_horizontal: char,
     pub room_border_corner:     char,
+    pub paddle:                 char,
 }

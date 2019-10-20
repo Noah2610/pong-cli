@@ -1,4 +1,5 @@
 pub mod prelude {
+    pub use super::draw_entities::DrawEntitiesSystem;
     pub use super::draw_room::DrawRoomSystem;
     pub use super::input::InputSystem;
 }
@@ -18,9 +19,11 @@ mod system_prelude {
     };
 
     pub use crate::components::prelude::*;
+    pub use crate::flush_stdout;
     pub use crate::resources::prelude::*;
     pub use crate::settings::prelude::*;
 }
 
+mod draw_entities;
 mod draw_room;
 mod input;
