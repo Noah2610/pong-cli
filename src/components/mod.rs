@@ -3,6 +3,7 @@ pub mod prelude {
     pub use super::collision::{Collider, Collision, CollisionType, WallSide};
     pub use super::drawable::Drawable;
     pub use super::paddle::{Paddle, PaddleSide};
+    pub use super::paddle_ai::PaddleAi;
     pub use super::position::Position;
     pub use super::size::Size;
     pub use super::velocity::Velocity;
@@ -23,6 +24,7 @@ mod ball;
 mod collision;
 mod drawable;
 mod paddle;
+mod paddle_ai;
 mod position;
 mod size;
 mod velocity;

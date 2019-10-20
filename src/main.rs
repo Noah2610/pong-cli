@@ -64,6 +64,9 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
             "control_paddles_system",
             &["input_system"],
         )
+        .with(PaddleAiSystem::default(), "paddle_ai_system", &[
+            "input_system",
+        ])
         .with(BallBounceSystem::default(), "ball_bounce_system", &[
             "move_entities_system",
         ])
@@ -98,6 +101,7 @@ fn create_paddles(world: &mut World) {
     world.register::<Velocity>();
     world.register::<Collider>();
     world.register::<Collision>();
+    world.register::<PaddleAi>();
 
     let settings = (*world.read_resource::<Settings>()).clone();
 
@@ -115,6 +119,7 @@ fn create_paddles(world: &mut World) {
         .with(paddle_size.clone())
         .with(Velocity::default())
         .with(Collision::new(CollisionType::Paddle(PaddleSide::Left)))
+        .with(PaddleAi::default())
         .build();
 
     // Right paddle
@@ -129,6 +134,7 @@ fn create_paddles(world: &mut World) {
         .with(paddle_size.clone())
         .with(Velocity::default())
         .with(Collision::new(CollisionType::Paddle(PaddleSide::Right)))
+        .with(PaddleAi::default())
         .build();
 }
 
