@@ -1,6 +1,6 @@
 use super::component_prelude::*;
 
-#[derive(PartialEq)]
+#[derive(Clone, Copy, PartialEq)]
 pub enum PaddleSide {
     Left,
     Right,

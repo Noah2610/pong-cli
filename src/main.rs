@@ -19,7 +19,7 @@ mod resources;
 mod settings;
 mod systems;
 
-const SLEEP_MS: u64 = 250;
+const SLEEP_MS: u64 = 100;
 
 pub fn flush_stdout() {
     use std::io::{stdout, Write};
@@ -56,6 +56,11 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
             "move_entities_system",
             "draw_room_system",
         ])
+        .with(
+            ControlPaddlesSystem::default(),
+            "control_paddles_system",
+            &["input_system"],
+        )
         .build();
 
     let cursor = TerminalCursor::new();
@@ -110,7 +115,7 @@ fn create_paddles(world: &mut World) {
             paddle_y,
         ))
         .with(paddle_size.clone())
-        .with(Velocity::new(-1.0, 0.5))
+        .with(Velocity::default())
         .build();
 }
 

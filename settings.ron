@@ -5,7 +5,8 @@
     ),
 
     paddle: (
-        size: (2.0, 8.0),
+        size:  (2.0, 8.0),
+        speed: 2.0,
     ),
 
     bindings: (
@@ -15,8 +16,8 @@
             down: ["s"],
         ),
         paddle_right: (
-            up:   ["k", "UP"],
-            down: ["j", "DOWN"],
+            up:   ["k", "Up"],
+            down: ["j", "Down"],
         ),
     ),
 

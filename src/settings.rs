@@ -23,7 +23,8 @@ pub struct SettingsRoom {
 
 #[derive(Clone, Deserialize)]
 pub struct SettingsPaddle {
-    pub size: (f32, f32),
+    pub size:  (f32, f32),
+    pub speed: f32,
 }
 
 #[derive(Clone, Deserialize)]
