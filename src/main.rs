@@ -2,6 +2,7 @@ extern crate crossterm;
 extern crate ron;
 #[macro_use]
 extern crate serde;
+#[macro_use]
 extern crate specs;
 
 use std::thread::sleep;
