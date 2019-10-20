@@ -4,6 +4,10 @@
         height: 25,
     ),
 
+    paddles: (
+        size: (8.0, 2.0),
+    ),
+
     chars: (
         room_border_vertical:   '-',
         room_border_horizontal: '|',

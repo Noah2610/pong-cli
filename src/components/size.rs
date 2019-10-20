@@ -1,14 +1,14 @@
 use super::component_prelude::*;
 
-#[derive(Component)]
+#[derive(Clone, Component)]
 #[storage(VecStorage)]
 pub struct Size {
-    pub w: u16,
-    pub h: u16,
+    pub w: f32,
+    pub h: f32,
 }
 
 impl Size {
-    pub fn new(w: u16, h: u16) -> Self {
+    pub fn new(w: f32, h: f32) -> Self {
         Self { w, h }
     }
 }

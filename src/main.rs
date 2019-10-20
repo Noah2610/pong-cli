@@ -54,7 +54,45 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     world.insert(cursor);
     world.insert(TerminalInput::new());
 
+    create_paddles(&mut world);
+
     (world, dispatcher)
+}
+
+fn create_paddles(world: &mut World) {
+    use components::prelude::*;
+    use specs::Builder;
+
+    // TODO remove
+    world.register::<Paddle>();
+    world.register::<Position>();
+    world.register::<Size>();
+
+    let settings = (*world.read_resource::<Settings>()).clone();
+
+    let paddle_x = settings.paddles.size.0 * 0.5;
+    let paddle_y = settings.room.height as f32 * 0.5;
+    let paddle_size =
+        Size::new(settings.paddles.size.0, settings.paddles.size.1);
+
+    // Left paddle
+    world
+        .create_entity()
+        .with(Paddle::new(PaddleSide::Left))
+        .with(Position::new(paddle_x, paddle_y))
+        .with(paddle_size.clone())
+        .build();
+
+    // Right paddle
+    world
+        .create_entity()
+        .with(Paddle::new(PaddleSide::Right))
+        .with(Position::new(
+            settings.room.width as f32 - paddle_x,
+            paddle_y,
+        ))
+        .with(paddle_size.clone())
+        .build();
 }
 
 fn cleanup(world: World) {

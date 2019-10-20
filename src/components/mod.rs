@@ -1,5 +1,5 @@
 pub mod prelude {
-    pub use super::paddle::Paddle;
+    pub use super::paddle::{Paddle, PaddleSide};
     pub use super::position::Position;
     pub use super::size::Size;
 }

@@ -1,5 +1,18 @@
 use super::component_prelude::*;
 
-#[derive(Default, Component)]
+pub enum PaddleSide {
+    Left,
+    Right,
+}
+
+#[derive(Component)]
 #[storage(VecStorage)]
-pub struct Paddle {}
+pub struct Paddle {
+    pub side: PaddleSide,
+}
+
+impl Paddle {
+    pub fn new(side: PaddleSide) -> Self {
+        Self { side }
+    }
+}
