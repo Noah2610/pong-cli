@@ -9,6 +9,7 @@
     ),
 
     chars: (
+        empty:                  ' ',
         room_border_vertical:   '-',
         room_border_horizontal: '|',
         room_border_corner:     '=',

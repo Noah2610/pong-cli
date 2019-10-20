@@ -8,8 +8,21 @@ impl<'a> System<'a> for DrawRoomSystem {
         (ReadExpect<'a, Settings>, ReadExpect<'a, TerminalCursor>);
 
     fn run(&mut self, (settings, cursor): Self::SystemData) {
+        clear_room(&settings, &cursor);
         draw_border(&settings, &cursor);
         flush_stdout();
+    }
+}
+
+fn clear_room(settings: &Settings, cursor: &TerminalCursor) {
+    let empty_row = settings
+        .chars
+        .empty
+        .to_string()
+        .repeat(settings.room.width as usize);
+    for y in 0 .. settings.room.height {
+        cursor.goto(0, y).unwrap();
+        print!("{}", empty_row);
     }
 }
 
