@@ -2,7 +2,6 @@ extern crate crossterm;
 extern crate ron;
 #[macro_use]
 extern crate serde;
-#[macro_use]
 extern crate specs;
 
 use std::thread::sleep;
@@ -15,6 +14,7 @@ use resources::prelude::*;
 use settings::prelude::*;
 
 mod components;
+mod input;
 mod resources;
 mod settings;
 mod systems;
@@ -61,6 +61,8 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     let cursor = TerminalCursor::new();
     cursor.hide().unwrap();
 
+    let settings = load_settings();
+    world.insert(InputManager::new(settings.bindings.clone()));
     world.insert(load_settings());
     world.insert(AlternateScreen::to_alternate(RAW_MODE).unwrap());
     world.insert(cursor);

@@ -8,6 +8,18 @@
         size: (2.0, 8.0),
     ),
 
+    bindings: (
+        quit: ["q"],
+        paddle_left: (
+            up:   ["w"],
+            down: ["s"],
+        ),
+        paddle_right: (
+            up:   ["k", "UP"],
+            down: ["j", "DOWN"],
+        ),
+    ),
+
     chars: (
         empty:                  ' ',
         room_border_vertical:   '-',
