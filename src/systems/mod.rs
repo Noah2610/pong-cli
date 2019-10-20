@@ -2,6 +2,7 @@ pub mod prelude {
     pub use super::draw_entities::DrawEntitiesSystem;
     pub use super::draw_room::DrawRoomSystem;
     pub use super::input::InputSystem;
+    pub use super::move_entities::MoveEntitiesSystem;
 }
 
 mod system_prelude {
@@ -27,3 +28,4 @@ mod system_prelude {
 mod draw_entities;
 mod draw_room;
 mod input;
+mod move_entities;

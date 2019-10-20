@@ -34,7 +34,7 @@ impl<'a> System<'a> for DrawEntitiesSystem {
                     pos_rounded.1 - half_size.1 .. pos_rounded.1 + half_size.1
                 {
                     if let (Ok(x), Ok(y)) = (x.try_into(), y.try_into()) {
-                        if x <= room_size.0 && y <= room_size.1 {
+                        if x < room_size.0 && y < room_size.1 {
                             cursor.goto(x, y).unwrap();
                             print!("{}", drawable.character);
                         }

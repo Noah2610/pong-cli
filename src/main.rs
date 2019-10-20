@@ -48,8 +48,12 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     let mut world = World::new();
     let dispatcher = DispatcherBuilder::new()
         .with(InputSystem::default(), "input_system", &[])
-        .with(DrawRoomSystem::default(), "draw_room_system", &[])
+        .with(MoveEntitiesSystem::default(), "move_entities_system", &[])
+        .with(DrawRoomSystem::default(), "draw_room_system", &[
+            "move_entities_system",
+        ])
         .with(DrawEntitiesSystem::default(), "draw_entities_system", &[
+            "move_entities_system",
             "draw_room_system",
         ])
         .build();
@@ -75,6 +79,7 @@ fn create_paddles(world: &mut World) {
     world.register::<Position>();
     world.register::<Size>();
     world.register::<Drawable>();
+    world.register::<Velocity>();
 
     let settings = (*world.read_resource::<Settings>()).clone();
 
@@ -90,6 +95,7 @@ fn create_paddles(world: &mut World) {
         .with(Drawable::new(paddle_char))
         .with(Position::new(paddle_x, paddle_y))
         .with(paddle_size.clone())
+        .with(Velocity::default())
         .build();
 
     // Right paddle
@@ -102,6 +108,7 @@ fn create_paddles(world: &mut World) {
             paddle_y,
         ))
         .with(paddle_size.clone())
+        .with(Velocity::new(-1.0, 0.5))
         .build();
 }
 
