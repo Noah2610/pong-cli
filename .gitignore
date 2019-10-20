@@ -1,6 +1,7 @@
 /target
 **/*.rs.bk
 
+_ignore
 /bin/util.sh
 /logs
 *.log
