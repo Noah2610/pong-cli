@@ -70,11 +70,11 @@ impl CollisionGrid {
             )
         ) && (
             (
-                   rect_one.top <= rect_two.top
-                && rect_one.top >  rect_two.bottom
+                   rect_one.top >= rect_two.top
+                && rect_one.top <  rect_two.bottom
             ) || (
-                   rect_one.top    >= rect_two.top
-                && rect_one.bottom <  rect_two.top
+                   rect_one.top    <= rect_two.top
+                && rect_one.bottom >  rect_two.top
             )
         )
     }
@@ -193,7 +193,7 @@ impl<'a> System<'a> for MoveEntitiesSystem {
                     let rem = vel % 1.0;
 
                     // Try to move by one absolute unit
-                    for _ in 0 ..= abs {
+                    for _ in 0 .. abs {
                         let (collision_rect, new_position) =
                             new_collision_rect_and_position(
                                 entity_id,
@@ -209,6 +209,8 @@ impl<'a> System<'a> for MoveEntitiesSystem {
                         {
                             collider.push(collision_type);
                         }
+                        position.x = new_position.0;
+                        position.y = new_position.1;
                     }
                     // Try to move by the floating point remainder
                     // Calculate new position
@@ -227,11 +229,13 @@ impl<'a> System<'a> for MoveEntitiesSystem {
                     {
                         collider.push(collision_type);
                     }
+                    position.x = new_position.0;
+                    position.y = new_position.1;
                 });
+            } else {
+                position.x += velocity.x * dt;
+                position.y += velocity.y * dt;
             }
-
-            position.x += velocity.x * dt;
-            position.y += velocity.y * dt;
         }
     }
 }

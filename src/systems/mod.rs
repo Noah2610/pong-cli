@@ -1,4 +1,5 @@
 pub mod prelude {
+    pub use super::ball_bounce::BallBounceSystem;
     pub use super::control_paddles::ControlPaddlesSystem;
     pub use super::deltatime::DeltatimeSystem;
     pub use super::draw_entities::DrawEntitiesSystem;
@@ -28,6 +29,7 @@ mod system_prelude {
     pub use crate::settings::prelude::*;
 }
 
+mod ball_bounce;
 mod control_paddles;
 mod deltatime;
 mod draw_entities;
