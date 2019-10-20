@@ -82,6 +82,7 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
 
     create_paddles(&mut world);
     create_ball(&mut world);
+    create_vertical_walls(&mut world);
 
     (world, dispatcher)
 }
@@ -155,6 +156,33 @@ fn create_ball(world: &mut World) {
         ))
         .with(Collision::new(CollisionType::Ball))
         .with(Collider::default())
+        .build();
+}
+
+fn create_vertical_walls(world: &mut World) {
+    use components::prelude::*;
+    use specs::Builder;
+
+    let settings = (*world.read_resource::<Settings>()).clone();
+    let room_size = (settings.room.width as f32, settings.room.height as f32);
+    let half_room_size = (room_size.0 * 0.5, room_size.1 * 0.5);
+    let size = (room_size.0, 8.0);
+    let half_size = (half_room_size.0, size.1 * 0.5);
+
+    // Top edge
+    world
+        .create_entity()
+        .with(Position::new(half_room_size.0, -half_size.1))
+        .with(Size::new(size.0, size.1))
+        .with(Collision::new(CollisionType::Wall(WallSide::Top)))
+        .build();
+
+    // Bottom edge
+    world
+        .create_entity()
+        .with(Position::new(half_room_size.0, room_size.1 + half_size.1))
+        .with(Size::new(size.0, size.1))
+        .with(Collision::new(CollisionType::Wall(WallSide::Bottom)))
         .build();
 }
 

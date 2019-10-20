@@ -1,6 +1,6 @@
 pub mod prelude {
     pub use super::ball::Ball;
-    pub use super::collision::{Collider, Collision, CollisionType};
+    pub use super::collision::{Collider, Collision, CollisionType, WallSide};
     pub use super::drawable::Drawable;
     pub use super::paddle::{Paddle, PaddleSide};
     pub use super::position::Position;
