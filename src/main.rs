@@ -47,8 +47,11 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
 
     let mut world = World::new();
     let dispatcher = DispatcherBuilder::new()
+        .with(DeltatimeSystem::default(), "deltatime_system", &[])
         .with(InputSystem::default(), "input_system", &[])
-        .with(MoveEntitiesSystem::default(), "move_entities_system", &[])
+        .with(MoveEntitiesSystem::default(), "move_entities_system", &[
+            "deltatime_system",
+        ])
         .with(DrawRoomSystem::default(), "draw_room_system", &[
             "move_entities_system",
         ])
@@ -67,6 +70,7 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     cursor.hide().unwrap();
 
     let settings = load_settings();
+    world.insert(Deltatime::default());
     world.insert(InputManager::new(settings.bindings.clone()));
     world.insert(load_settings());
     world.insert(AlternateScreen::to_alternate(RAW_MODE).unwrap());

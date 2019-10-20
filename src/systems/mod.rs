@@ -1,5 +1,6 @@
 pub mod prelude {
     pub use super::control_paddles::ControlPaddlesSystem;
+    pub use super::deltatime::DeltatimeSystem;
     pub use super::draw_entities::DrawEntitiesSystem;
     pub use super::draw_room::DrawRoomSystem;
     pub use super::input::InputSystem;
@@ -27,6 +28,7 @@ mod system_prelude {
 }
 
 mod control_paddles;
+mod deltatime;
 mod draw_entities;
 mod draw_room;
 mod input;
