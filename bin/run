@@ -1,0 +1,25 @@
+#!/bin/bash
+# Run the project for development.
+# All command-line arguments are passed to the executed `cargo` command.
+# Optional environment variables:
+#   $RUN_NEW_TERMINAL
+#     If this variable is not `0` or empty,
+#     then the cargo command is executed in a new terminal.
+#     DEFAULT: ""
+#   $RUN_FEATURES
+#     Comma-separated list of features to build with.
+#     DEFAULT: ""
+
+
+# shellcheck source=./share.sh
+_dir="$( dirname "$0" )"
+source "${_dir}/share.sh"
+unset _dir
+
+function run {
+    cargo_cmd "run" "$*"
+}
+
+[ -z "$RUN_FEATURES" ] && export RUN_FEATURES=""
+
+run "$@"

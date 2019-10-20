@@ -1,0 +1,11 @@
+[package]
+name = "pong-cli"
+version = "0.1.0"
+authors = ["Noah Rosenzweig <rosenzweig.noah@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+crossterm = "0.11.1"
+ron       = "0.5.1"
+serde     = "1.0.101"
+specs     = "0.15.1"

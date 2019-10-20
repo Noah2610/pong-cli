@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+files=("README.md" "Cargo.toml" "vimrc")
+files_find=($( find src/ -iname "*.rs" ))
+$EDITOR ${files[@]} ${files_find[@]}
