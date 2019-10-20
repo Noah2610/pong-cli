@@ -9,6 +9,11 @@
         speed: 10.0,
     ),
 
+    ball: (
+        size:     (2.0, 2.0),
+        velocity: (8.0, 2.0),
+    ),
+
     bindings: (
         quit: ["q", "Ctrl+c", "Esc"],
         paddle_left: (
@@ -27,5 +32,6 @@
         room_border_horizontal: '|',
         room_border_corner:     '=',
         paddle:                 '#',
+        ball:                   'O',
     ),
 )

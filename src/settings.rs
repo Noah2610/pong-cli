@@ -1,5 +1,6 @@
 pub mod prelude {
     pub use super::Settings;
+    pub use super::SettingsBall;
     pub use super::SettingsChars;
     pub use super::SettingsInput;
     pub use super::SettingsInputPaddle;
@@ -11,6 +12,7 @@ pub mod prelude {
 pub struct Settings {
     pub room:     SettingsRoom,
     pub paddle:   SettingsPaddle,
+    pub ball:     SettingsBall,
     pub bindings: SettingsInput,
     pub chars:    SettingsChars,
 }
@@ -25,6 +27,12 @@ pub struct SettingsRoom {
 pub struct SettingsPaddle {
     pub size:  (f32, f32),
     pub speed: f32,
+}
+
+#[derive(Clone, Deserialize)]
+pub struct SettingsBall {
+    pub size:     (f32, f32),
+    pub velocity: (f32, f32),
 }
 
 #[derive(Clone, Deserialize)]
@@ -47,4 +55,5 @@ pub struct SettingsChars {
     pub room_border_horizontal: char,
     pub room_border_corner:     char,
     pub paddle:                 char,
+    pub ball:                   char,
 }

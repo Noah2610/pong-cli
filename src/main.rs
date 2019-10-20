@@ -138,17 +138,21 @@ fn create_ball(world: &mut World) {
     world.register::<Ball>();
 
     let settings = (*world.read_resource::<Settings>()).clone();
+    let ball_size = Size::new(settings.ball.size.0, settings.ball.size.1);
 
     world
         .create_entity()
         .with(Ball::default())
-        .with(Drawable::new('O'))
+        .with(Drawable::new(settings.chars.ball))
         .with(Position::new(
             settings.room.width as f32 * 0.5,
             settings.room.height as f32 * 0.5,
         ))
-        .with(Size::new(2.0, 2.0))
-        .with(Velocity::new(8.0, 0.1))
+        .with(ball_size)
+        .with(Velocity::new(
+            settings.ball.velocity.0,
+            settings.ball.velocity.1,
+        ))
         .with(Collision::new(CollisionType::Ball))
         .with(Collider::default())
         .build();
