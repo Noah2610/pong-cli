@@ -1,2 +1,12 @@
 (
+    room: (
+        width:  80,
+        height: 25,
+    ),
+
+    chars: (
+        room_border_vertical:   '-',
+        room_border_horizontal: '|',
+        room_border_corner:     '#',
+    ),
 )

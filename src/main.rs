@@ -8,16 +8,17 @@ use std::thread::sleep;
 use std::time::Duration;
 
 use crossterm::AlternateScreen;
-use settings::prelude::*;
 use specs::{Dispatcher, DispatcherBuilder, World, WorldExt};
 
+use resources::prelude::*;
+use settings::prelude::*;
+
 mod components;
+mod resources;
 mod settings;
 mod systems;
 
 const SLEEP_MS: u64 = 1000;
-
-struct Running(pub bool);
 
 fn main() {
     let (mut world, mut dispatcher) = setup();
@@ -25,10 +26,11 @@ fn main() {
     world.insert(Running(true));
 
     while world.read_resource::<Running>().0 {
-        eprintln!("DISPATCH");
         dispatcher.dispatch(&mut world);
         sleep(Duration::from_millis(SLEEP_MS));
     }
+
+    cleanup(world);
     eprintln!("Clean exit!");
 }
 
@@ -42,12 +44,15 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
         .with(DrawRoomSystem::default(), "draw_room_system", &[])
         .build();
 
-    let settings = load_settings();
-    world.insert(settings);
-
-    AlternateScreen::to_alternate(RAW_MODE).unwrap();
+    world.insert(load_settings());
+    world.insert(TerminalCursor::new());
+    world.insert(AlternateScreen::to_alternate(RAW_MODE).unwrap());
 
     (world, dispatcher)
+}
+
+fn cleanup(world: World) {
+    world.write_resource::<AlternateScreen>().to_main().unwrap();
 }
 
 fn load_settings() -> Settings {
