@@ -74,6 +74,7 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     world.insert(TerminalInput::new());
 
     create_paddles(&mut world);
+    create_ball(&mut world);
 
     (world, dispatcher)
 }
@@ -116,6 +117,24 @@ fn create_paddles(world: &mut World) {
         ))
         .with(paddle_size.clone())
         .with(Velocity::default())
+        .build();
+}
+
+fn create_ball(world: &mut World) {
+    use components::prelude::*;
+    use specs::Builder;
+
+    let settings = (*world.read_resource::<Settings>()).clone();
+
+    world
+        .create_entity()
+        .with(Drawable::new('O'))
+        .with(Position::new(
+            settings.room.width as f32 * 0.5,
+            settings.room.height as f32 * 0.5,
+        ))
+        .with(Size::new(2.0, 2.0))
+        .with(Velocity::new(0.5, 0.25))
         .build();
 }
 
