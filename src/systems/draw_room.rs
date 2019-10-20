@@ -8,10 +8,7 @@ impl<'a> System<'a> for DrawRoomSystem {
         (ReadExpect<'a, Settings>, ReadExpect<'a, TerminalCursor>);
 
     fn run(&mut self, (settings, cursor): Self::SystemData) {
-        // Draw border
-        // Draw top border
         draw_border(&settings, &cursor);
-
         flush_stdout();
     }
 }

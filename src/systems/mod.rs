@@ -1,5 +1,6 @@
 pub mod prelude {
     pub use super::draw_room::DrawRoomSystem;
+    pub use super::input::InputSystem;
 }
 
 mod system_prelude {
@@ -22,3 +23,4 @@ mod system_prelude {
 }
 
 mod draw_room;
+mod input;

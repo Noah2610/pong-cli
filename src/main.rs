@@ -37,22 +37,28 @@ fn main() {
 fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     use systems::prelude::*;
 
-    const RAW_MODE: bool = false;
+    const RAW_MODE: bool = true;
 
     let mut world = World::new();
     let dispatcher = DispatcherBuilder::new()
+        .with(InputSystem::default(), "input_system", &[])
         .with(DrawRoomSystem::default(), "draw_room_system", &[])
         .build();
 
+    let cursor = TerminalCursor::new();
+    cursor.hide().unwrap();
+
     world.insert(load_settings());
-    world.insert(TerminalCursor::new());
     world.insert(AlternateScreen::to_alternate(RAW_MODE).unwrap());
+    world.insert(cursor);
+    world.insert(TerminalInput::new());
 
     (world, dispatcher)
 }
 
 fn cleanup(world: World) {
-    world.write_resource::<AlternateScreen>().to_main().unwrap();
+    world.read_resource::<AlternateScreen>().to_main().unwrap();
+    world.read_resource::<TerminalCursor>().show().unwrap();
 }
 
 fn load_settings() -> Settings {

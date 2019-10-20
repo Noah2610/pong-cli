@@ -17,7 +17,7 @@ source "${_dir}/share.sh"
 unset _dir
 
 function run {
-    cargo_cmd "run" "$*"
+    cargo_cmd "run" "$* 2>> $LOGFILE"
 }
 
 [ -z "$RUN_FEATURES" ] && export RUN_FEATURES=""
