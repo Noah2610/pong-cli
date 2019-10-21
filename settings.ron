@@ -12,6 +12,13 @@
         size:  (2.0, 8.0),
         /// Paddles' speed
         speed: 20.0,
+        /// Paddle AI settings
+        ai: (
+            /// If left paddle should be an AI
+            left:  false,
+            /// If right paddle should be an AI
+            right: true,
+        ),
     ),
 
     ball: (

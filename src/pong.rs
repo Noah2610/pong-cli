@@ -133,7 +133,7 @@ fn create_paddles(world: &mut World) {
     };
 
     // Left paddle
-    world
+    let mut left_paddle = world
         .create_entity()
         .with(Paddle::new(Side::Left))
         .with(Drawable::new(paddle_char))
@@ -141,12 +141,15 @@ fn create_paddles(world: &mut World) {
         .with(paddle_size.clone())
         .with(Velocity::default())
         .with(Collision::new(CollisionType::Paddle(Side::Left)))
-        .with(Confined::new(room_rect.clone()))
-        // .with(PaddleAi::default())
-        .build();
+        .with(Confined::new(room_rect.clone()));
+    // Left paddle AI
+    if settings.paddle.ai.left {
+        left_paddle = left_paddle.with(PaddleAi::default());
+    }
+    left_paddle.build();
 
     // Right paddle
-    world
+    let mut right_paddle = world
         .create_entity()
         .with(Paddle::new(Side::Right))
         .with(Drawable::new(paddle_char))
@@ -157,9 +160,12 @@ fn create_paddles(world: &mut World) {
         .with(paddle_size.clone())
         .with(Velocity::default())
         .with(Collision::new(CollisionType::Paddle(Side::Right)))
-        .with(Confined::new(room_rect))
-        .with(PaddleAi::default())
-        .build();
+        .with(Confined::new(room_rect));
+    // Right paddle AI
+    if settings.paddle.ai.right {
+        right_paddle = right_paddle.with(PaddleAi::default());
+    }
+    right_paddle.build();
 }
 
 fn create_ball(world: &mut World) {
