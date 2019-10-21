@@ -1,17 +1,10 @@
 use super::component_prelude::*;
-use super::paddle::PaddleSide;
-
-#[derive(Clone, PartialEq)]
-pub enum WallSide {
-    Top,
-    Bottom,
-}
 
 #[derive(Clone, PartialEq)]
 pub enum CollisionType {
-    Paddle(PaddleSide),
+    Paddle(Side),
     Ball,
-    Wall(WallSide),
+    Wall(Side),
 }
 
 #[derive(Default, Component)]

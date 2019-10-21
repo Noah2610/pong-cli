@@ -26,6 +26,7 @@ mod system_prelude {
 
     pub use crate::components::prelude::*;
     pub use crate::flush_stdout;
+    pub use crate::geo::prelude::*;
     pub use crate::resources::prelude::*;
     pub use crate::settings::prelude::*;
 }

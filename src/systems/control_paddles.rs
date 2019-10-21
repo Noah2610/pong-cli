@@ -8,16 +8,25 @@ impl<'a> System<'a> for ControlPaddlesSystem {
         ReadExpect<'a, Settings>,
         ReadExpect<'a, InputManager>,
         ReadStorage<'a, Paddle>,
+        ReadStorage<'a, PaddleAi>,
         WriteStorage<'a, Velocity>,
     );
 
     fn run(
         &mut self,
-        (settings, input_manager, paddles, mut velocities): Self::SystemData,
+        (
+            settings,
+            input_manager,
+            paddles,
+            paddle_ais,
+            mut velocities,
+        ): Self::SystemData,
     ) {
         let paddle_speed = settings.paddle.speed;
 
-        for (paddle, paddle_velocity) in (&paddles, &mut velocities).join() {
+        for (paddle, paddle_velocity, _) in
+            (&paddles, &mut velocities, !&paddle_ais).join()
+        {
             paddle_velocity.y = 0.0;
 
             if input_manager.is_pressed(InputKey::PaddleUp(paddle.side)) {

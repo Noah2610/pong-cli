@@ -1,6 +1,6 @@
 use crossterm::KeyEvent;
 
-use crate::components::prelude::PaddleSide;
+use crate::geo::prelude::*;
 use crate::settings::SettingsInput;
 
 pub mod prelude {
@@ -38,17 +38,17 @@ impl InputManager {
         }
         // Check left paddle's binds
         if self.settings.paddle_left.up.contains(&key_string) {
-            self.insert_pressed(InputKey::PaddleUp(PaddleSide::Left));
+            self.insert_pressed(InputKey::PaddleUp(Side::Left));
         }
         if self.settings.paddle_left.down.contains(&key_string) {
-            self.insert_pressed(InputKey::PaddleDown(PaddleSide::Left));
+            self.insert_pressed(InputKey::PaddleDown(Side::Left));
         }
         // Check right paddle's binds
         if self.settings.paddle_right.up.contains(&key_string) {
-            self.insert_pressed(InputKey::PaddleUp(PaddleSide::Right));
+            self.insert_pressed(InputKey::PaddleUp(Side::Right));
         }
         if self.settings.paddle_right.down.contains(&key_string) {
-            self.insert_pressed(InputKey::PaddleDown(PaddleSide::Right));
+            self.insert_pressed(InputKey::PaddleDown(Side::Right));
         }
     }
 
@@ -62,8 +62,8 @@ impl InputManager {
 #[derive(PartialEq)]
 pub enum InputKey {
     Quit,
-    PaddleUp(PaddleSide),
-    PaddleDown(PaddleSide),
+    PaddleUp(Side),
+    PaddleDown(Side),
 }
 
 #[rustfmt::skip]

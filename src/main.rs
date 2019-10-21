@@ -14,6 +14,7 @@ use resources::prelude::*;
 use settings::prelude::*;
 
 mod components;
+mod geo;
 mod input;
 mod resources;
 mod settings;
@@ -92,6 +93,7 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
 
 fn create_paddles(world: &mut World) {
     use components::prelude::*;
+    use geo::prelude::*;
     use specs::Builder;
 
     world.register::<Paddle>();
@@ -113,19 +115,19 @@ fn create_paddles(world: &mut World) {
     // Left paddle
     world
         .create_entity()
-        .with(Paddle::new(PaddleSide::Left))
+        .with(Paddle::new(Side::Left))
         .with(Drawable::new(paddle_char))
         .with(Position::new(paddle_x, paddle_y))
         .with(paddle_size.clone())
         .with(Velocity::default())
-        .with(Collision::new(CollisionType::Paddle(PaddleSide::Left)))
+        .with(Collision::new(CollisionType::Paddle(Side::Left)))
         // .with(PaddleAi::default())
         .build();
 
     // Right paddle
     world
         .create_entity()
-        .with(Paddle::new(PaddleSide::Right))
+        .with(Paddle::new(Side::Right))
         .with(Drawable::new(paddle_char))
         .with(Position::new(
             settings.room.width as f32 - paddle_x,
@@ -133,13 +135,14 @@ fn create_paddles(world: &mut World) {
         ))
         .with(paddle_size.clone())
         .with(Velocity::default())
-        .with(Collision::new(CollisionType::Paddle(PaddleSide::Right)))
+        .with(Collision::new(CollisionType::Paddle(Side::Right)))
         .with(PaddleAi::default())
         .build();
 }
 
 fn create_ball(world: &mut World) {
     use components::prelude::*;
+    use geo::prelude::*;
     use specs::Builder;
 
     world.register::<Ball>();
@@ -167,6 +170,7 @@ fn create_ball(world: &mut World) {
 
 fn create_vertical_walls(world: &mut World) {
     use components::prelude::*;
+    use geo::prelude::*;
     use specs::Builder;
 
     const WALL_SIZE_PADDING: f32 = 8.0;
@@ -182,7 +186,7 @@ fn create_vertical_walls(world: &mut World) {
         .create_entity()
         .with(Position::new(half_room_size.0, -half_size.1))
         .with(Size::new(size.0, size.1))
-        .with(Collision::new(CollisionType::Wall(WallSide::Top)))
+        .with(Collision::new(CollisionType::Wall(Side::Top)))
         .build();
 
     // Bottom edge
@@ -190,7 +194,7 @@ fn create_vertical_walls(world: &mut World) {
         .create_entity()
         .with(Position::new(half_room_size.0, room_size.1 + half_size.1))
         .with(Size::new(size.0, size.1))
-        .with(Collision::new(CollisionType::Wall(WallSide::Bottom)))
+        .with(Collision::new(CollisionType::Wall(Side::Bottom)))
         .build();
 }
 

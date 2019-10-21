@@ -17,25 +17,23 @@ impl<'a> System<'a> for BallBounceSystem {
             // Bounce off paddles
             if velocity.x < 0.0
                 && collider
-                    .in_collision_with(&CollisionType::Paddle(PaddleSide::Left))
+                    .in_collision_with(&CollisionType::Paddle(Side::Left))
             {
                 velocity.x = velocity.x.abs();
             } else if velocity.x > 0.0
-                && collider.in_collision_with(&CollisionType::Paddle(
-                    PaddleSide::Right,
-                ))
+                && collider
+                    .in_collision_with(&CollisionType::Paddle(Side::Right))
             {
                 velocity.x = -velocity.x.abs();
             }
             // Bounce off vertical walls
             if velocity.y < 0.0
-                && collider
-                    .in_collision_with(&CollisionType::Wall(WallSide::Top))
+                && collider.in_collision_with(&CollisionType::Wall(Side::Top))
             {
                 velocity.y = velocity.y.abs();
             } else if velocity.y > 0.0
                 && collider
-                    .in_collision_with(&CollisionType::Wall(WallSide::Bottom))
+                    .in_collision_with(&CollisionType::Wall(Side::Bottom))
             {
                 velocity.y = -velocity.y.abs();
             }
