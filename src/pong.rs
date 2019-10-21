@@ -136,7 +136,7 @@ fn create_paddles(world: &mut World) {
         .with(Velocity::default())
         .with(Collision::new(CollisionType::Paddle(Side::Left)))
         .with(Confined::new(room_rect.clone()))
-        // .with(PaddleAi::default())
+        .with(PaddleAi::default())
         .build();
 
     // Right paddle
