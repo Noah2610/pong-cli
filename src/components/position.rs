@@ -12,3 +12,9 @@ impl Position {
         Self { x, y }
     }
 }
+
+impl Into<(f32, f32)> for &Position {
+    fn into(self) -> (f32, f32) {
+        (self.x, self.y)
+    }
+}
