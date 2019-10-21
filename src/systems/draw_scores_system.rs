@@ -11,8 +11,8 @@ impl<'a> System<'a> for DrawScoresSystem {
     );
 
     fn run(&mut self, (settings, scores, cursor): Self::SystemData) {
-        let room_size =
-            (settings.room.width as f32, settings.room.height as f32);
+        let room_size_int = (settings.room.width, settings.room.height);
+        let room_size = (room_size_int.0 as f32, room_size_int.1 as f32);
         let position_relative = settings.score.position_relative;
         let position = (
             room_size.0 * position_relative.0,
@@ -21,9 +21,15 @@ impl<'a> System<'a> for DrawScoresSystem {
         let position_round =
             (position.0.round() as u16, position.1.round() as u16);
 
-        // Draw left paddle's score
+        // Draw LEFT paddle's score
         cursor.goto(position_round.0, position_round.1).unwrap();
         print!("{}", scores.get(&Side::Left));
+
+        // Draw RIGHT paddle's score
+        cursor
+            .goto(room_size_int.0 - position_round.0, position_round.1)
+            .unwrap();
+        print!("{}", scores.get(&Side::Right));
 
         crate::flush_stdout();
     }
