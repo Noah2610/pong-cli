@@ -1,3 +1,5 @@
+// TODO: Clean this mess up (collision stuff).
+
 use super::system_prelude::*;
 
 /// Just a plain `Axis` enum with `X` and `Y` variants.
@@ -47,7 +49,7 @@ impl CollisionGrid {
             .iter()
             .filter_map(|rect| {
                 if rect.id != target.id
-                    && Self::do_rects_intersect(rect, target)
+                    && Self::do_rects_intersect(&rect.rect, &target.rect)
                 {
                     Some(rect.collision_type.clone())
                 } else {
@@ -59,7 +61,7 @@ impl CollisionGrid {
 
     /// Returns `true` if the two passed `Rect`s intersect with each other.
     #[rustfmt::skip]
-    fn do_rects_intersect(rect_one: &CollisionRect, rect_two: &CollisionRect) -> bool {
+    fn do_rects_intersect(rect_one: &Rect, rect_two: &Rect) -> bool {
         (
             (
                    rect_one.left >= rect_two.left
@@ -83,10 +85,7 @@ impl CollisionGrid {
 struct CollisionRect {
     pub id:             Index,
     pub collision_type: CollisionType,
-    pub top:            f32,
-    pub bottom:         f32,
-    pub left:           f32,
-    pub right:          f32,
+    pub rect:           Rect,
 }
 
 fn new_collision_rect_and_position(
@@ -107,10 +106,12 @@ fn new_collision_rect_and_position(
         CollisionRect {
             id:             id,
             collision_type: collision_type.clone(),
-            top:            new_position.1 - half_size.1,
-            bottom:         new_position.1 + half_size.1,
-            left:           new_position.0 - half_size.0,
-            right:          new_position.0 + half_size.0,
+            rect:           Rect {
+                top:    new_position.1 - half_size.1,
+                bottom: new_position.1 + half_size.1,
+                left:   new_position.0 - half_size.0,
+                right:  new_position.0 + half_size.0,
+            },
         },
         new_position,
     )
@@ -152,10 +153,12 @@ impl<'a> System<'a> for MoveEntitiesSystem {
             collision_grid.push(CollisionRect {
                 id:             entity.id(),
                 collision_type: collision.collision_type.clone(),
-                top:            position.y - half_size.1,
-                bottom:         position.y + half_size.1,
-                left:           position.x - half_size.0,
-                right:          position.x + half_size.0,
+                rect:           Rect {
+                    top:    position.y - half_size.1,
+                    bottom: position.y + half_size.1,
+                    left:   position.x - half_size.0,
+                    right:  position.x + half_size.0,
+                },
             });
         }
 

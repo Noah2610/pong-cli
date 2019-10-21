@@ -51,8 +51,14 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
             "deltatime_system",
             "move_paddles_system",
         ])
+        .with(
+            ConfineEntitiesSystem::default(),
+            "confine_entities_system",
+            &["move_entities_system"],
+        )
         .with(DrawRoomSystem::default(), "draw_room_system", &[
             "move_entities_system",
+            "confine_entities_system",
         ])
         .with(DrawEntitiesSystem::default(), "draw_entities_system", &[
             "move_entities_system",
@@ -77,6 +83,7 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     world.register::<Collision>();
     world.register::<PaddleAi>();
     world.register::<Ball>();
+    world.register::<Confined>();
 
     // Insert resources
     let settings = load_settings();
@@ -107,6 +114,12 @@ fn create_paddles(world: &mut World) {
     let paddle_y = settings.room.height as f32 * 0.5;
     let paddle_size = Size::new(settings.paddle.size.0, settings.paddle.size.1);
     let paddle_char = settings.chars.paddle;
+    let room_rect = Rect {
+        top:    0.0,
+        bottom: settings.room.height as f32,
+        left:   0.0,
+        right:  settings.room.width as f32,
+    };
 
     // Left paddle
     world
@@ -117,6 +130,7 @@ fn create_paddles(world: &mut World) {
         .with(paddle_size.clone())
         .with(Velocity::default())
         .with(Collision::new(CollisionType::Paddle(Side::Left)))
+        .with(Confined::new(room_rect.clone()))
         // .with(PaddleAi::default())
         .build();
 
@@ -132,6 +146,7 @@ fn create_paddles(world: &mut World) {
         .with(paddle_size.clone())
         .with(Velocity::default())
         .with(Collision::new(CollisionType::Paddle(Side::Right)))
+        .with(Confined::new(room_rect))
         .with(PaddleAi::default())
         .build();
 }

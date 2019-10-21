@@ -1,5 +1,6 @@
 pub mod prelude {
     pub use super::ball_bounce::BallBounceSystem;
+    pub use super::confine_entities::ConfineEntitiesSystem;
     pub use super::control_paddles::ControlPaddlesSystem;
     pub use super::deltatime::DeltatimeSystem;
     pub use super::draw_entities::DrawEntitiesSystem;
@@ -36,6 +37,7 @@ mod system_prelude {
 }
 
 mod ball_bounce;
+mod confine_entities;
 mod control_paddles;
 mod deltatime;
 mod draw_entities;

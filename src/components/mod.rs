@@ -1,6 +1,7 @@
 pub mod prelude {
     pub use super::ball::Ball;
     pub use super::collision::{Collider, Collision, CollisionType};
+    pub use super::confined::Confined;
     pub use super::drawable::Drawable;
     pub use super::paddle::{MoveDirection, Paddle};
     pub use super::paddle_ai::PaddleAi;
@@ -24,6 +25,7 @@ pub mod component_prelude {
 
 mod ball;
 mod collision;
+mod confined;
 mod drawable;
 mod paddle;
 mod paddle_ai;
