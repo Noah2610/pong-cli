@@ -10,11 +10,12 @@ pub mod prelude {
 
 #[derive(Clone, Deserialize)]
 pub struct Settings {
-    pub room:     SettingsRoom,
-    pub paddle:   SettingsPaddle,
-    pub ball:     SettingsBall,
-    pub bindings: SettingsInput,
-    pub chars:    SettingsChars,
+    pub update_delay_ms: u64,
+    pub room:            SettingsRoom,
+    pub paddle:          SettingsPaddle,
+    pub ball:            SettingsBall,
+    pub bindings:        SettingsInput,
+    pub chars:           SettingsChars,
 }
 
 #[derive(Clone, Deserialize)]

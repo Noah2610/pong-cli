@@ -15,20 +15,27 @@ impl<'a> System<'a> for BallBounceSystem {
             (&balls, &colliders, &mut velocities).join()
         {
             // Bounce off paddles
-            if collider
-                .in_collision_with(&CollisionType::Paddle(PaddleSide::Left))
+            if velocity.x < 0.0
+                && collider
+                    .in_collision_with(&CollisionType::Paddle(PaddleSide::Left))
             {
                 velocity.x = velocity.x.abs();
-            } else if collider
-                .in_collision_with(&CollisionType::Paddle(PaddleSide::Right))
+            } else if velocity.x > 0.0
+                && collider.in_collision_with(&CollisionType::Paddle(
+                    PaddleSide::Right,
+                ))
             {
                 velocity.x = -velocity.x.abs();
             }
             // Bounce off vertical walls
-            if collider.in_collision_with(&CollisionType::Wall(WallSide::Top)) {
+            if velocity.y < 0.0
+                && collider
+                    .in_collision_with(&CollisionType::Wall(WallSide::Top))
+            {
                 velocity.y = velocity.y.abs();
-            } else if collider
-                .in_collision_with(&CollisionType::Wall(WallSide::Bottom))
+            } else if velocity.y > 0.0
+                && collider
+                    .in_collision_with(&CollisionType::Wall(WallSide::Bottom))
             {
                 velocity.y = -velocity.y.abs();
             }

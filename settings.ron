@@ -1,4 +1,8 @@
 (
+    /// Sleep X ms between every update
+    update_delay_ms: 50,
+
+    /// The room's size
     room: (
         width:  80,
         height: 24,
@@ -6,14 +10,23 @@
 
     paddle: (
         size:  (2.0, 8.0),
+        /// Paddles' speed
         speed: 20.0,
     ),
 
     ball: (
         size:     (2.0, 2.0),
+        /// Balls initial velocity
         velocity: (20.0, 5.0),
     ),
 
+    /// Keybindings
+    /// Can either be a single printable character,
+    /// or can include modifiers "Ctrl+X" and "Alt+X",
+    /// where "x" would be any printable character.
+    /// Some additional valid keys are "Esc", "Up", "Down", "Left", "Right".
+    /// For a full list of valid keys, see
+    /// https://docs.rs/crossterm/0.11.1/crossterm/enum.KeyEvent.html
     bindings: (
         quit: ["q", "Ctrl+c", "Esc"],
         paddle_left: (
@@ -26,6 +39,7 @@
         ),
     ),
 
+    /// Visual representation of the game; which characters to use for which objects
     chars: (
         empty:                  ' ',
         room_border_vertical:   '-',

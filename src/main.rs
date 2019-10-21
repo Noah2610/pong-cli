@@ -19,8 +19,6 @@ mod resources;
 mod settings;
 mod systems;
 
-const SLEEP_MS: u64 = 50;
-
 pub fn flush_stdout() {
     use std::io::{stdout, Write};
     stdout().flush().expect("Should flush stdout");
@@ -31,9 +29,11 @@ fn main() {
 
     world.insert(Running(true));
 
+    let sleep_ms = world.read_resource::<Settings>().update_delay_ms;
+
     while world.read_resource::<Running>().0 {
         dispatcher.dispatch(&mut world);
-        sleep(Duration::from_millis(SLEEP_MS));
+        sleep(Duration::from_millis(sleep_ms));
     }
 
     cleanup(world);
@@ -169,10 +169,12 @@ fn create_vertical_walls(world: &mut World) {
     use components::prelude::*;
     use specs::Builder;
 
+    const WALL_SIZE_PADDING: f32 = 8.0;
+
     let settings = (*world.read_resource::<Settings>()).clone();
     let room_size = (settings.room.width as f32, settings.room.height as f32);
     let half_room_size = (room_size.0 * 0.5, room_size.1 * 0.5);
-    let size = (room_size.0, 8.0);
+    let size = (room_size.0, WALL_SIZE_PADDING);
     let half_size = (half_room_size.0, size.1 * 0.5);
 
     // Top edge
