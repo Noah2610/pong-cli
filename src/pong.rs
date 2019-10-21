@@ -110,15 +110,15 @@ fn cleanup(world: World) {
 fn create_paddles(world: &mut World) {
     let settings = (*world.read_resource::<Settings>()).clone();
 
-    let paddle_x = settings.paddle.size.0 * 0.5;
+    let paddle_x = 1.0 + settings.paddle.size.0 * 0.5;
     let paddle_y = settings.room.height as f32 * 0.5;
     let paddle_size = Size::new(settings.paddle.size.0, settings.paddle.size.1);
     let paddle_char = settings.chars.paddle;
     let room_rect = Rect {
-        top:    0.0,
-        bottom: settings.room.height as f32,
-        left:   0.0,
-        right:  settings.room.width as f32,
+        top:    1.0,
+        bottom: (settings.room.height - 1) as f32,
+        left:   1.0,
+        right:  (settings.room.width - 1) as f32,
     };
 
     // Left paddle
