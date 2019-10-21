@@ -6,6 +6,7 @@ pub mod prelude {
     pub use super::SettingsInputPaddle;
     pub use super::SettingsPaddle;
     pub use super::SettingsRoom;
+    pub use super::SettingsScores;
 }
 
 #[derive(Clone, Deserialize)]
@@ -14,6 +15,7 @@ pub struct Settings {
     pub room:            SettingsRoom,
     pub paddle:          SettingsPaddle,
     pub ball:            SettingsBall,
+    pub score:           SettingsScores,
     pub bindings:        SettingsInput,
     pub chars:           SettingsChars,
 }
@@ -38,6 +40,11 @@ pub struct SettingsBall {
     pub spawn_delay_ms:        u64,
     pub balls_amount:          u16,
     pub spawn_next_ball_in_ms: u64,
+}
+
+#[derive(Clone, Deserialize)]
+pub struct SettingsScores {
+    pub position_relative: (f32, f32),
 }
 
 #[derive(Clone, Deserialize)]

@@ -72,6 +72,11 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
             "move_entities_system",
             "draw_room_system",
         ])
+        .with(DrawScoresSystem::default(), "draw_scores_system", &[
+            "ball_score_system",
+            "draw_room_system",
+            "draw_entities_system",
+        ])
         .with(SpawnBallSystem::default(), "spawn_ball_system", &[])
         .build();
 
@@ -98,6 +103,7 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     world.insert(AlternateScreen::to_alternate(RAW_MODE).unwrap());
     world.insert(cursor);
     world.insert(TerminalInput::new());
+    world.insert(Scores::default());
 
     // Create entities
     create_paddles(&mut world);
@@ -136,7 +142,7 @@ fn create_paddles(world: &mut World) {
         .with(Velocity::default())
         .with(Collision::new(CollisionType::Paddle(Side::Left)))
         .with(Confined::new(room_rect.clone()))
-        .with(PaddleAi::default())
+        // .with(PaddleAi::default())
         .build();
 
     // Right paddle
