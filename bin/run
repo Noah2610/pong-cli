@@ -8,7 +8,7 @@
 #     DEFAULT: ""
 #   $RUN_FEATURES
 #     Comma-separated list of features to build with.
-#     DEFAULT: ""
+#     DEFAULT: "nightly"
 
 
 # shellcheck source=./share.sh
@@ -24,6 +24,6 @@ function run {
     #          https://stackoverflow.com/a/692407/10927893
 }
 
-[ -z "$RUN_FEATURES" ] && export RUN_FEATURES=""
+[ -z "$RUN_FEATURES" ] && export RUN_FEATURES="nightly"
 
 run "$@"
