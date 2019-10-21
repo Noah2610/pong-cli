@@ -99,7 +99,7 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     let settings = load_settings();
     world.insert(Deltatime::default());
     world.insert(InputManager::new(settings.bindings.clone()));
-    world.insert(load_settings());
+    world.insert(settings);
     world.insert(AlternateScreen::to_alternate(RAW_MODE).unwrap());
     world.insert(cursor);
     world.insert(TerminalInput::new());

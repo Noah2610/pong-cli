@@ -1,4 +1,6 @@
 extern crate crossterm;
+#[cfg(feature = "random")]
+extern crate rand;
 extern crate ron;
 #[macro_use]
 extern crate serde;

@@ -25,7 +25,6 @@ impl<'a> System<'a> for SpawnBallSystem {
             Duration::from_millis(settings.ball.spawn_next_ball_in_ms);
         let target_balls_amount = settings.ball.balls_amount;
         let current_balls_amount = ball_storages.balls.join().count() as u16;
-        let initial_ball_velocity = settings.ball.velocity;
 
         // Make previously spawned, non-moving balls move
         let mut remove_balls_spawned_at = Vec::new();
@@ -38,10 +37,8 @@ impl<'a> System<'a> for SpawnBallSystem {
                 )
                     .join()
                     .find(|(ball_entity, _, _)| ball_entity.id() == *id)
-                    .map(|(_, _, ball_velocity)| {
-                        // TODO: In which direction should balls begin to move?
-                        ball_velocity.x = initial_ball_velocity.0;
-                        ball_velocity.y = initial_ball_velocity.1;
+                    .map(|(_, _, mut ball_velocity)| {
+                        self.start_moving_ball(&settings, &mut ball_velocity);
                     });
                 remove_balls_spawned_at.push(*id);
             }
@@ -65,6 +62,21 @@ impl<'a> System<'a> for SpawnBallSystem {
 }
 
 impl SpawnBallSystem {
+    fn start_moving_ball(
+        &self,
+        settings: &Settings,
+        ball_velocity: &mut Velocity,
+    ) {
+        let initial_ball_velocity = (
+            settings.ball.velocity.0.abs(),
+            settings.ball.velocity.1.abs(),
+        );
+        let spawn_direction = &settings.ball.spawn_direction;
+
+        ball_velocity.x = spawn_direction.0.number(initial_ball_velocity.0);
+        ball_velocity.y = spawn_direction.1.number(initial_ball_velocity.1);
+    }
+
     fn spawn_ball(
         &mut self,
         entities: &Entities,
