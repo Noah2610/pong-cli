@@ -8,6 +8,7 @@ pub mod prelude {
     pub use super::move_entities::MoveEntitiesSystem;
     pub use super::move_paddles::MovePaddlesSystem;
     pub use super::paddle_ai::PaddleAiSystem;
+    pub use super::spawn_ball::SpawnBallSystem;
 }
 
 mod system_prelude {
@@ -20,6 +21,8 @@ mod system_prelude {
         ReadExpect,
         ReadStorage,
         System,
+        World,
+        WorldExt,
         Write,
         WriteExpect,
         WriteStorage,
@@ -41,3 +44,4 @@ mod input;
 mod move_entities;
 mod move_paddles;
 mod paddle_ai;
+mod spawn_ball;

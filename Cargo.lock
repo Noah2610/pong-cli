@@ -464,7 +464,18 @@ dependencies = [
  "hashbrown 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "mopa 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "rayon 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "shred-derive 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "smallvec 0.6.10 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "shred-derive"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "proc-macro2 0.4.30 (registry+https://github.com/rust-lang/crates.io-index)",
+ "quote 0.6.13 (registry+https://github.com/rust-lang/crates.io-index)",
+ "syn 0.15.44 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -619,6 +630,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum serde 1.0.101 (registry+https://github.com/rust-lang/crates.io-index)" = "9796c9b7ba2ffe7a9ce53c2287dfc48080f4b2b362fcc245a259b3a7201119dd"
 "checksum serde_derive 1.0.101 (registry+https://github.com/rust-lang/crates.io-index)" = "4b133a43a1ecd55d4086bd5b4dc6c1751c68b1bfbeba7a5040442022c7e7c02e"
 "checksum shred 0.9.3 (registry+https://github.com/rust-lang/crates.io-index)" = "d15d46c92f8c0aed110a132f3c68a8cdd390048f51fa547c89dc571ba1e01191"
+"checksum shred-derive 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)" = "8c245c03fd923292ae18e01eadf65606fdc995c175433104ef3eee956db7c2d7"
 "checksum shrev 1.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "b5752e017e03af9d735b4b069f53b7a7fd90fefafa04d8bd0c25581b0bff437f"
 "checksum smallvec 0.6.10 (registry+https://github.com/rust-lang/crates.io-index)" = "ab606a9c5e214920bb66c458cd7be8ef094f813f20fe77a54cc7dbfff220d4b7"
 "checksum specs 0.15.1 (registry+https://github.com/rust-lang/crates.io-index)" = "4943fde8c5d3d14c3d19d2a4c7abbd7b626c270a19e6cd35252294a48feb698c"

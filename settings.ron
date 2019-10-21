@@ -15,11 +15,17 @@
     ),
 
     ball: (
-        size:              (2.0, 2.0),
+        size: (2.0, 2.0),
         /// Balls initial velocity
-        velocity:          (20.0, 0.0),
+        velocity: (20.0, 0.0),
         /// Linearly increase velocity by this amount on each paddle hit
         velocity_increase: (2.0, 0.5),
+        /// Time in ms before the ball starts moving after it is spawned
+        spawn_delay_ms: 3000,
+        /// Total amount of balls in a game
+        balls_amount: 3,
+        /// Time in ms before a new ball is spawned, if current ball count is less than `balls_amount`
+        spawn_next_ball_in_ms: 5000,
     ),
 
     /// Keybindings

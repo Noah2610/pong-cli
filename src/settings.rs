@@ -32,9 +32,12 @@ pub struct SettingsPaddle {
 
 #[derive(Clone, Deserialize)]
 pub struct SettingsBall {
-    pub size:              (f32, f32),
-    pub velocity:          (f32, f32),
-    pub velocity_increase: (f32, f32),
+    pub size:                  (f32, f32),
+    pub velocity:              (f32, f32),
+    pub velocity_increase:     (f32, f32),
+    pub spawn_delay_ms:        u64,
+    pub balls_amount:          u16,
+    pub spawn_next_ball_in_ms: u64,
 }
 
 #[derive(Clone, Deserialize)]

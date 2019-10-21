@@ -58,6 +58,7 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
             "move_entities_system",
             "draw_room_system",
         ])
+        .with(SpawnBallSystem::default(), "spawn_ball_system", &[])
         .with(BallBounceSystem::default(), "ball_bounce_system", &[
             "move_entities_system",
         ])
@@ -66,6 +67,18 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     let cursor = TerminalCursor::new();
     cursor.hide().unwrap();
 
+    // Register components
+    world.register::<Paddle>();
+    world.register::<Position>();
+    world.register::<Size>();
+    world.register::<Drawable>();
+    world.register::<Velocity>();
+    world.register::<Collider>();
+    world.register::<Collision>();
+    world.register::<PaddleAi>();
+    world.register::<Ball>();
+
+    // Insert resources
     let settings = load_settings();
     world.insert(Deltatime::default());
     world.insert(InputManager::new(settings.bindings.clone()));
@@ -74,8 +87,9 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     world.insert(cursor);
     world.insert(TerminalInput::new());
 
+    // Create entities
     create_paddles(&mut world);
-    create_ball(&mut world);
+    // create_ball(&mut world);
     create_vertical_walls(&mut world);
 
     (world, dispatcher)
@@ -87,15 +101,6 @@ fn cleanup(world: World) {
 }
 
 fn create_paddles(world: &mut World) {
-    world.register::<Paddle>();
-    world.register::<Position>();
-    world.register::<Size>();
-    world.register::<Drawable>();
-    world.register::<Velocity>();
-    world.register::<Collider>();
-    world.register::<Collision>();
-    world.register::<PaddleAi>();
-
     let settings = (*world.read_resource::<Settings>()).clone();
 
     let paddle_x = settings.paddle.size.0 * 0.5;
@@ -132,8 +137,6 @@ fn create_paddles(world: &mut World) {
 }
 
 fn create_ball(world: &mut World) {
-    world.register::<Ball>();
-
     let settings = (*world.read_resource::<Settings>()).clone();
     let ball_size = Size::new(settings.ball.size.0, settings.ball.size.1);
 
