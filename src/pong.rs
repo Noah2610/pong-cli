@@ -20,6 +20,7 @@ pub fn run() {
 
     while world.read_resource::<Running>().0 {
         dispatcher.dispatch(&mut world);
+        world.maintain();
         sleep(sleep_duration);
     }
 
@@ -56,6 +57,13 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
             "confine_entities_system",
             &["move_entities_system"],
         )
+        .with(BallBounceSystem::default(), "ball_bounce_system", &[
+            "move_entities_system",
+        ])
+        .with(BallScoreSystem::default(), "ball_score_system", &[
+            "move_entities_system",
+            "ball_bounce_system",
+        ])
         .with(DrawRoomSystem::default(), "draw_room_system", &[
             "move_entities_system",
             "confine_entities_system",
@@ -65,9 +73,6 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
             "draw_room_system",
         ])
         .with(SpawnBallSystem::default(), "spawn_ball_system", &[])
-        .with(BallBounceSystem::default(), "ball_bounce_system", &[
-            "move_entities_system",
-        ])
         .build();
 
     let cursor = TerminalCursor::new();
