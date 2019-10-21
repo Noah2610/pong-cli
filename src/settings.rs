@@ -32,8 +32,9 @@ pub struct SettingsPaddle {
 
 #[derive(Clone, Deserialize)]
 pub struct SettingsBall {
-    pub size:     (f32, f32),
-    pub velocity: (f32, f32),
+    pub size:              (f32, f32),
+    pub velocity:          (f32, f32),
+    pub velocity_increase: (f32, f32),
 }
 
 #[derive(Clone, Deserialize)]

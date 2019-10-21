@@ -15,9 +15,11 @@
     ),
 
     ball: (
-        size:     (2.0, 2.0),
+        size:              (2.0, 2.0),
         /// Balls initial velocity
-        velocity: (20.0, 5.0),
+        velocity:          (20.0, 0.0),
+        /// Linearly increase velocity by this amount on each paddle hit
+        velocity_increase: (2.0, 0.5),
     ),
 
     /// Keybindings
