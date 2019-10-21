@@ -7,35 +7,26 @@ pub struct PaddleAiSystem;
 
 impl<'a> System<'a> for PaddleAiSystem {
     type SystemData = (
-        ReadExpect<'a, Settings>,
         ReadStorage<'a, PaddleAi>,
         ReadStorage<'a, Ball>,
         ReadStorage<'a, Position>,
-        WriteStorage<'a, Velocity>,
+        WriteStorage<'a, Paddle>,
     );
 
     fn run(
         &mut self,
-        (
-            settings,
-            paddle_ais,
-            balls,
-            positions,
-            mut velocities,
-        ): Self::SystemData,
+        (paddle_ais, balls, positions, mut paddles): Self::SystemData,
     ) {
-        let paddle_speed = settings.paddle.speed;
-
         if let Some(ball_position) =
             (&balls, &positions).join().next().map(|(_, pos)| pos)
         {
-            for (_, paddle_position, paddle_velocity) in
-                (&paddle_ais, &positions, &mut velocities).join()
+            for (_, paddle, paddle_position) in
+                (&paddle_ais, &mut paddles, &positions).join()
             {
                 if ball_position.y < paddle_position.y - FOLLOW_PADDING {
-                    paddle_velocity.y = -paddle_speed;
+                    paddle.move_up();
                 } else if ball_position.y > paddle_position.y + FOLLOW_PADDING {
-                    paddle_velocity.y = paddle_speed;
+                    paddle.move_down();
                 }
             }
         }

@@ -6,7 +6,8 @@ pub mod prelude {
     pub use super::draw_room::DrawRoomSystem;
     pub use super::input::InputSystem;
     pub use super::move_entities::MoveEntitiesSystem;
-    pub use super::paddle_ai_system::PaddleAiSystem;
+    pub use super::move_paddles::MovePaddlesSystem;
+    pub use super::paddle_ai::PaddleAiSystem;
 }
 
 mod system_prelude {
@@ -38,4 +39,5 @@ mod draw_entities;
 mod draw_room;
 mod input;
 mod move_entities;
-mod paddle_ai_system;
+mod move_paddles;
+mod paddle_ai;

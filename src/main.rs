@@ -50,16 +50,6 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     let dispatcher = DispatcherBuilder::new()
         .with(DeltatimeSystem::default(), "deltatime_system", &[])
         .with(InputSystem::default(), "input_system", &[])
-        .with(MoveEntitiesSystem::default(), "move_entities_system", &[
-            "deltatime_system",
-        ])
-        .with(DrawRoomSystem::default(), "draw_room_system", &[
-            "move_entities_system",
-        ])
-        .with(DrawEntitiesSystem::default(), "draw_entities_system", &[
-            "move_entities_system",
-            "draw_room_system",
-        ])
         .with(
             ControlPaddlesSystem::default(),
             "control_paddles_system",
@@ -67,6 +57,21 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
         )
         .with(PaddleAiSystem::default(), "paddle_ai_system", &[
             "input_system",
+        ])
+        .with(MovePaddlesSystem::default(), "move_paddles_system", &[
+            "control_paddles_system",
+            "paddle_ai_system",
+        ])
+        .with(MoveEntitiesSystem::default(), "move_entities_system", &[
+            "deltatime_system",
+            "move_paddles_system",
+        ])
+        .with(DrawRoomSystem::default(), "draw_room_system", &[
+            "move_entities_system",
+        ])
+        .with(DrawEntitiesSystem::default(), "draw_entities_system", &[
+            "move_entities_system",
+            "draw_room_system",
         ])
         .with(BallBounceSystem::default(), "ball_bounce_system", &[
             "move_entities_system",
