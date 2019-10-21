@@ -42,8 +42,8 @@
     /// Visual representation of the game; which characters to use for which objects
     chars: (
         empty:                  ' ',
-        room_border_vertical:   '-',
-        room_border_horizontal: '|',
+        room_border_horizontal: '-',
+        room_border_vertical:   '|',
         room_border_corner:     '=',
         paddle:                 '#',
         ball:                   'O',

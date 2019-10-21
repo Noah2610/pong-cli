@@ -52,8 +52,8 @@ pub struct SettingsInputPaddle {
 #[derive(Clone, Deserialize)]
 pub struct SettingsChars {
     pub empty:                  char,
-    pub room_border_vertical:   char,
     pub room_border_horizontal: char,
+    pub room_border_vertical:   char,
     pub room_border_corner:     char,
     pub paddle:                 char,
     pub ball:                   char,

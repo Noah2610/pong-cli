@@ -30,27 +30,27 @@ fn draw_border(settings: &Settings, cursor: &TerminalCursor) {
     let room = &settings.room;
     let chars = &settings.chars;
 
-    let draw_vertical = |y: u16| {
+    let draw_horizontal = |y: u16| {
         let row = chars
-            .room_border_vertical
+            .room_border_horizontal
             .to_string()
             .repeat(room.width as usize);
         cursor.goto(0, y).unwrap();
         print!("{}", row);
     };
-    let draw_horizontal = |x: u16| {
+    let draw_vertical = |x: u16| {
         for y in 0 .. room.height {
             cursor.goto(x, y).unwrap();
-            print!("{}", chars.room_border_horizontal);
+            print!("{}", chars.room_border_vertical);
         }
     };
 
     let right = room.width - 1;
     let bottom = room.height - 1;
-    draw_vertical(0);
-    draw_vertical(bottom);
     draw_horizontal(0);
-    draw_horizontal(right);
+    draw_horizontal(bottom);
+    draw_vertical(0);
+    draw_vertical(right);
     // Draw corners
     cursor.goto(0, 0).unwrap();
     print!("{}", chars.room_border_corner);
