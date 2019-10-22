@@ -38,7 +38,6 @@
         ///   `Left`, `Right`, `Random`
         /// Valid values for Y direction are:
         ///   `None`, `Up`, `Down`, `Random`
-        /// (Capitalization doesn't matter)
         /// `Random` will randomly pick one of the other available values.
         /// Note that the `Random` value only works if the game is built with the `random` feature,
         /// will panic otherwise.
@@ -59,7 +58,7 @@
     /// Keybindings
     /// Can either be a single printable character,
     /// or can include modifiers "Ctrl+X" and "Alt+X",
-    /// where "x" would be any printable character.
+    /// where "X" would be any printable character.
     /// Some additional valid keys are "Esc", "Up", "Down", "Left", "Right".
     /// For a full list of valid keys, see
     /// https://docs.rs/crossterm/0.11.1/crossterm/enum.KeyEvent.html
