@@ -24,24 +24,25 @@
     ball: (
         size: (2.0, 2.0),
         /// Balls initial velocity
-        velocity: (20.0, 0.0),
+        velocity: (20.0, 2.0),
         /// Linearly increase velocity by this amount on each paddle hit
         velocity_increase: (2.0, 2.0),
         /// Time in ms before the ball starts moving after it is spawned
         spawn_delay_ms: 1000,
         /// Total amount of balls in a game
-        balls_amount: 3,
+        balls_amount: 1,
         /// Time in ms before a new ball is spawned, if current ball count is less than `balls_amount`
         spawn_next_ball_in_ms: 5000,
         /// In which directions (x,y) the ball should start moving when spawned.
         /// Valid values for X direction are:
         ///   `Left`, `Right`, `Random`
         /// Valid values for Y direction are:
-        ///   `None`, `Up`, `Down`, `Random`
+        ///   `None`, `Up`, `Down`, `Random`, `RandomUpOrDown`
         /// `Random` will randomly pick one of the other available values.
+        /// Y's `RandomUpOrDown` value will choose either `Up` or `Down`, but never `None`.
         /// Note that the `Random` value only works if the game is built with the `random` feature,
         /// will panic otherwise.
-        spawn_direction: (Random, Random),
+        spawn_direction: (Random, RandomUpOrDown),
     ),
 
     score: (

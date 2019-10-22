@@ -48,6 +48,8 @@ pub enum BallSpawnDirectionY {
     Up,
     Down,
     #[cfg(feature = "random")]
+    RandomUpOrDown,
+    #[cfg(feature = "random")]
     Random,
 }
 
@@ -57,6 +59,8 @@ impl BallSpawnDirectionY {
             Self::None => 0.0,
             Self::Up => -num,
             Self::Down => num,
+            #[cfg(feature = "random")]
+            Self::RandomUpOrDown => Self::sample_up_or_down().number(num),
             #[cfg(feature = "random")]
             Self::Random => Self::sample().number(num),
         }
@@ -71,6 +75,18 @@ impl BallSpawnDirectionY {
             0 => Self::None,
             1 => Self::Up,
             2 => Self::Down,
+            _ => panic!("Random value should never get here"),
+        }
+    }
+
+    #[cfg(feature = "random")]
+    fn sample_up_or_down() -> Self {
+        use rand::Rng;
+        const COUNT: u8 = 2;
+        let mut rng = rand::thread_rng();
+        match rng.gen_range(0, COUNT) {
+            0 => Self::Up,
+            1 => Self::Down,
             _ => panic!("Random value should never get here"),
         }
     }
