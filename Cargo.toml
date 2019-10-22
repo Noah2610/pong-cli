@@ -3,6 +3,17 @@ name = "pong-cli"
 version = "0.1.0"
 authors = ["Noah Rosenzweig <rosenzweig.noah@gmail.com>"]
 edition = "2018"
+include = [
+    "/Cargo.toml",
+    "/src",
+    "/settings.ron",
+]
+description = "Play pong from the command-line!"
+repository = "https://github.com/Noah2610/pong-cli"
+readme = "README.md"
+keywords = ["pong", "game", "cli"]
+categories = ["games", "command-line-utilities"]
+license = "MIT"
 
 [dependencies]
 crossterm = "0.11.1"
