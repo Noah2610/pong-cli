@@ -114,7 +114,6 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
 
     // Create entities
     create_paddles(&mut world);
-    // create_ball(&mut world);
     create_vertical_walls(&mut world);
 
     (world, dispatcher)
@@ -173,28 +172,6 @@ fn create_paddles(world: &mut World) {
         right_paddle = right_paddle.with(PaddleAi::default());
     }
     right_paddle.build();
-}
-
-fn create_ball(world: &mut World) {
-    let settings = (*world.read_resource::<Settings>()).clone();
-    let ball_size = Size::new(settings.ball.size.0, settings.ball.size.1);
-
-    world
-        .create_entity()
-        .with(Ball::default())
-        .with(Drawable::new(settings.chars.ball))
-        .with(Position::new(
-            settings.room.width as f32 * 0.5,
-            settings.room.height as f32 * 0.5,
-        ))
-        .with(ball_size)
-        .with(Velocity::new(
-            settings.ball.velocity.0,
-            settings.ball.velocity.1,
-        ))
-        .with(Collision::new(CollisionType::Ball))
-        .with(Collider::default())
-        .build();
 }
 
 fn create_vertical_walls(world: &mut World) {
