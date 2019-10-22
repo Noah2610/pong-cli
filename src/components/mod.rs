@@ -1,9 +1,15 @@
 pub mod prelude {
     pub use super::ball::Ball;
-    pub use super::collision::{Collider, Collision, CollisionType};
+    pub use super::collision::{
+        Collider,
+        Collision,
+        CollisionData,
+        CollisionInfo,
+        CollisionType,
+    };
     pub use super::confined::Confined;
     pub use super::drawable::Drawable;
-    pub use super::paddle::{MoveDirection, Paddle};
+    pub use super::paddle::{MoveDirection, Paddle, PaddleThird};
     pub use super::paddle_ai::PaddleAi;
     pub use super::position::Position;
     pub use super::size::Size;

@@ -44,14 +44,44 @@ impl CollisionGrid {
     pub fn collisions_with(
         &self,
         target: &CollisionRect,
-    ) -> Vec<CollisionType> {
+    ) -> Vec<CollisionData> {
         self.rects
             .iter()
             .filter_map(|rect| {
                 if rect.id != target.id
                     && Self::do_rects_intersect(&rect.rect, &target.rect)
                 {
-                    Some(rect.collision_type.clone())
+                    let mut collision_data =
+                        CollisionData::new(rect.collision_type.clone());
+                    if let CollisionType::Paddle(_) =
+                        collision_data.collision_type
+                    {
+                        let target_center_y = target.rect.top
+                            + (target.rect.bottom - target.rect.top) * 0.5;
+                        let rect_third =
+                            (rect.rect.bottom - rect.rect.top) / 3.0;
+                        let first_separator = rect.rect.top + rect_third;
+                        let second_separator = rect.rect.bottom - rect_third;
+                        collision_data.add_info(CollisionInfo::PaddleThird(
+                            if (.. first_separator).contains(&target_center_y) {
+                                PaddleThird::Top
+                            } else if (first_separator .. second_separator)
+                                .contains(&target_center_y)
+                            {
+                                PaddleThird::Middle
+                            } else if (second_separator ..)
+                                .contains(&target_center_y)
+                            {
+                                PaddleThird::Bottom
+                            } else {
+                                panic!(
+                                    "Ball's center should be in a third of a \
+                                     Paddle"
+                                )
+                            },
+                        ));
+                    }
+                    Some(collision_data)
                 } else {
                     None
                 }
@@ -176,10 +206,10 @@ pub(super) fn run_with_collision(
                     sign,
                 );
             // Check for collision in newly calculated position
-            for collision_type in
+            for collision_data in
                 collision_grid.collisions_with(&collision_rect)
             {
-                collider.push(collision_type);
+                collider.push(collision_data);
             }
             position.x = new_position.0;
             position.y = new_position.1;
@@ -195,8 +225,8 @@ pub(super) fn run_with_collision(
             rem,
         );
         // Check for collision in newly calculated position
-        for collision_type in collision_grid.collisions_with(&collision_rect) {
-            collider.push(collision_type);
+        for collision_data in collision_grid.collisions_with(&collision_rect) {
+            collider.push(collision_data);
         }
         position.x = new_position.0;
         position.y = new_position.1;

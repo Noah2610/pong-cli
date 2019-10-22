@@ -24,9 +24,9 @@
     ball: (
         size: (2.0, 2.0),
         /// Balls initial velocity
-        velocity: (20.0, 1.0),
+        velocity: (20.0, 0.0),
         /// Linearly increase velocity by this amount on each paddle hit
-        velocity_increase: (2.0, 1.0),
+        velocity_increase: (2.0, 2.0),
         /// Time in ms before the ball starts moving after it is spawned
         spawn_delay_ms: 1000,
         /// Total amount of balls in a game

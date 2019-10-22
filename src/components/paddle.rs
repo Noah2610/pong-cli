@@ -1,5 +1,12 @@
 use super::component_prelude::*;
 
+#[derive(Clone, PartialEq)]
+pub enum PaddleThird {
+    Top,
+    Middle,
+    Bottom,
+}
+
 pub enum MoveDirection {
     Up,
     Down,
