@@ -175,18 +175,22 @@ fn create_paddles(world: &mut World) {
 }
 
 fn create_vertical_walls(world: &mut World) {
-    const WALL_SIZE_PADDING: f32 = 8.0;
+    const WALL_HEIGHT: f32 = 8.0;
+    const WALL_Y_PADDING: f32 = 1.0;
 
     let settings = (*world.read_resource::<Settings>()).clone();
     let room_size = (settings.room.width as f32, settings.room.height as f32);
     let half_room_size = (room_size.0 * 0.5, room_size.1 * 0.5);
-    let size = (room_size.0, WALL_SIZE_PADDING);
+    let size = (room_size.0, WALL_HEIGHT);
     let half_size = (half_room_size.0, size.1 * 0.5);
 
     // Top edge
     world
         .create_entity()
-        .with(Position::new(half_room_size.0, -half_size.1))
+        .with(Position::new(
+            half_room_size.0,
+            -half_size.1 + WALL_Y_PADDING,
+        ))
         .with(Size::new(size.0, size.1))
         .with(Collision::new(CollisionType::Wall(Side::Top)))
         .build();
@@ -194,7 +198,10 @@ fn create_vertical_walls(world: &mut World) {
     // Bottom edge
     world
         .create_entity()
-        .with(Position::new(half_room_size.0, room_size.1 + half_size.1))
+        .with(Position::new(
+            half_room_size.0,
+            room_size.1 + half_size.1 - WALL_Y_PADDING,
+        ))
         .with(Size::new(size.0, size.1))
         .with(Collision::new(CollisionType::Wall(Side::Bottom)))
         .build();
