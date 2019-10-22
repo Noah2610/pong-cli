@@ -30,7 +30,5 @@ impl<'a> System<'a> for DrawScoresSystem {
             .goto(room_size_int.0 - position_round.0, position_round.1)
             .unwrap();
         print!("{}", scores.get(&Side::Right));
-
-        crate::flush_stdout();
     }
 }

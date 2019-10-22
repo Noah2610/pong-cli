@@ -11,13 +11,23 @@ pub struct SpawnBallSystem {
 }
 
 impl<'a> System<'a> for SpawnBallSystem {
-    type SystemData =
-        (Entities<'a>, ReadExpect<'a, Settings>, BallStorages<'a>);
+    type SystemData = (
+        Entities<'a>,
+        ReadExpect<'a, Settings>,
+        Write<'a, ShouldResetBallSpawns>,
+        BallStorages<'a>,
+    );
 
     fn run(
         &mut self,
-        (entities, settings, mut ball_storages): Self::SystemData,
+        (entities, settings, mut should_reset, mut ball_storages): Self::SystemData,
     ) {
+        if should_reset.0 {
+            self.balls_spawned_at.clear();
+            self.last_spawn_at = None;
+            should_reset.0 = false;
+        }
+
         let now = Instant::now();
         let spawn_delay_duration =
             Duration::from_millis(settings.ball.spawn_delay_ms);

@@ -120,6 +120,7 @@ pub struct SettingsBall {
 #[derive(Clone, Deserialize)]
 pub struct SettingsScores {
     pub position_relative: (f32, f32),
+    pub reset_on_score:    bool,
 }
 
 #[derive(Clone, Deserialize)]

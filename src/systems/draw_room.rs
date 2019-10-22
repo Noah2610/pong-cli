@@ -10,7 +10,6 @@ impl<'a> System<'a> for DrawRoomSystem {
     fn run(&mut self, (settings, cursor): Self::SystemData) {
         clear_room(&settings, &cursor);
         draw_border(&settings, &cursor);
-        flush_stdout();
     }
 }
 

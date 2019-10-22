@@ -42,7 +42,5 @@ impl<'a> System<'a> for DrawEntitiesSystem {
                 }
             }
         }
-
-        flush_stdout();
     }
 }

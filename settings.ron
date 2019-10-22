@@ -9,7 +9,7 @@
     ),
 
     paddle: (
-        size:  (2.0, 8.0),
+        size: (2.0, 8.0),
         /// Paddles' speed
         speed: 20.0,
         /// Paddle AI settings
@@ -50,6 +50,10 @@
         /// relative to the room size. The right paddle's score's position will be derived.
         /// Values range from `0.0` to `1.0` (both inclusive).
         position_relative: (0.4, 0.2),
+        /// Should everything be reset, when somebody scores?
+        /// Resetting means: Removing all balls and starting with one again,
+        /// and moving all paddles to their initial positions.
+        reset_on_score: true,
     ),
 
     /// Keybindings

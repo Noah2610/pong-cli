@@ -3,6 +3,7 @@ use specs::{Builder, Dispatcher, DispatcherBuilder, World, WorldExt};
 
 use crate::components::prelude::*;
 use crate::geo::prelude::*;
+use crate::helpers::*;
 use crate::resources::prelude::*;
 use crate::settings::prelude::*;
 
@@ -21,6 +22,7 @@ pub fn run() {
     while world.read_resource::<Running>().0 {
         dispatcher.dispatch(&mut world);
         world.maintain();
+        flush_stdout();
         sleep(sleep_duration);
     }
 
@@ -64,6 +66,9 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
             "move_entities_system",
             "ball_bounce_system",
         ])
+        .with(ResetSystem::default(), "reset_system", &[
+            "ball_score_system",
+        ])
         .with(DrawRoomSystem::default(), "draw_room_system", &[
             "move_entities_system",
             "confine_entities_system",
@@ -104,6 +109,8 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     world.insert(cursor);
     world.insert(TerminalInput::new());
     world.insert(Scores::default());
+    world.insert(ShouldReset::default());
+    world.insert(ShouldResetBallSpawns::default());
 
     // Create entities
     create_paddles(&mut world);
@@ -137,7 +144,7 @@ fn create_paddles(world: &mut World) {
         .create_entity()
         .with(Paddle::new(Side::Left))
         .with(Drawable::new(paddle_char))
-        .with(Position::new(paddle_x, paddle_y))
+        .with(position_for_paddle(&settings, &Side::Left))
         .with(paddle_size.clone())
         .with(Velocity::default())
         .with(Collision::new(CollisionType::Paddle(Side::Left)))

@@ -8,6 +8,7 @@ impl<'a> System<'a> for BallScoreSystem {
         Entities<'a>,
         ReadExpect<'a, Settings>,
         Write<'a, Scores>,
+        Write<'a, ShouldReset>,
         ReadStorage<'a, Ball>,
         ReadStorage<'a, Position>,
         ReadStorage<'a, Velocity>,
@@ -19,11 +20,13 @@ impl<'a> System<'a> for BallScoreSystem {
             entities,
             settings,
             mut scores,
+            mut should_reset,
             balls,
             positions,
             velocities,
         ): Self::SystemData,
     ) {
+        let mut scored = false;
         let room_size =
             (settings.room.width as f32, settings.room.height as f32);
 
@@ -44,10 +47,15 @@ impl<'a> System<'a> for BallScoreSystem {
             }
 
             if should_delete {
+                scored = true;
                 entities
                     .delete(ball_entity)
                     .expect("Should delete ball entity (scored)");
             }
+        }
+
+        if scored && settings.score.reset_on_score {
+            should_reset.0 = true;
         }
     }
 }

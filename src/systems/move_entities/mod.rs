@@ -1,5 +1,3 @@
-// TODO: Clean this mess up (collision stuff).
-
 mod collision;
 
 use super::system_prelude::*;

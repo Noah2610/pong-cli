@@ -11,6 +11,7 @@ pub mod prelude {
     pub use super::move_entities::MoveEntitiesSystem;
     pub use super::move_paddles::MovePaddlesSystem;
     pub use super::paddle_ai::PaddleAiSystem;
+    pub use super::reset::ResetSystem;
     pub use super::spawn_ball::SpawnBallSystem;
 }
 
@@ -32,8 +33,8 @@ mod system_prelude {
     };
 
     pub use crate::components::prelude::*;
-    pub use crate::flush_stdout;
     pub use crate::geo::prelude::*;
+    pub use crate::helpers::*;
     pub use crate::resources::prelude::*;
     pub use crate::settings::prelude::*;
 }
@@ -50,4 +51,5 @@ mod input;
 mod move_entities;
 mod move_paddles;
 mod paddle_ai;
+mod reset;
 mod spawn_ball;
