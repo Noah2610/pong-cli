@@ -111,9 +111,11 @@ pub struct SettingsRoom {
 
 #[derive(Clone, Deserialize)]
 pub struct SettingsPaddle {
-    pub size:  (f32, f32),
-    pub speed: f32,
-    pub ai:    SettingsPaddleAi,
+    pub fg_color: Option<String>,
+    pub bg_color: Option<String>,
+    pub size:     (f32, f32),
+    pub speed:    f32,
+    pub ai:       SettingsPaddleAi,
 }
 
 #[derive(Clone, Deserialize)]
@@ -124,6 +126,8 @@ pub struct SettingsPaddleAi {
 
 #[derive(Clone, Deserialize)]
 pub struct SettingsBall {
+    pub fg_color:              Option<String>,
+    pub bg_color:              Option<String>,
     pub size:                  (f32, f32),
     pub velocity:              (f32, f32),
     pub velocity_increase:     (f32, f32),

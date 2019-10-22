@@ -9,6 +9,11 @@
     ),
 
     paddle: (
+        /// Foreground color for the ball's character
+        fg_color: Some("Cyan"),
+        /// Background color for the ball's character
+        bg_color: Some("Cyan"),
+        /// Paddles' size
         size: (2.0, 8.0),
         /// Paddles' speed
         speed: 20.0,
@@ -22,6 +27,11 @@
     ),
 
     ball: (
+        /// Foreground color for the ball's character
+        fg_color: Some("Blue"),
+        /// Background color for the ball's character
+        bg_color: Some("Blue"),
+        /// The ball's size
         size: (2.0, 2.0),
         /// Balls initial velocity
         velocity: (20.0, 2.0),

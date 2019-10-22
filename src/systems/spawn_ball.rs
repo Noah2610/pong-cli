@@ -1,5 +1,8 @@
 use std::collections::HashMap;
+use std::str::FromStr;
 use std::time::{Duration, Instant};
+
+use crossterm::Color;
 
 use super::system_prelude::*;
 use ball_storages::BallStorages;
@@ -103,10 +106,18 @@ impl SpawnBallSystem {
     ) {
         let now = Instant::now();
 
+        let mut drawable = Drawable::new(settings.chars.ball);
+        if let Some(fg_color_str) = &settings.ball.fg_color {
+            drawable.add_fg_color(Color::from_str(fg_color_str).unwrap());
+        }
+        if let Some(bg_color_str) = &settings.ball.bg_color {
+            drawable.add_bg_color(Color::from_str(bg_color_str).unwrap());
+        }
+
         let ball_entity = entities
             .build_entity()
             .with(Ball::default(), balls)
-            .with(Drawable::new(settings.chars.ball), drawables)
+            .with(drawable, drawables)
             .with(
                 Position::new(
                     settings.room.width as f32 * 0.5,

@@ -1,5 +1,7 @@
 use std::convert::TryInto;
 
+use crossterm::style;
+
 use super::system_prelude::*;
 
 #[derive(Default)]
@@ -23,6 +25,15 @@ impl<'a> System<'a> for DrawEntitiesSystem {
         for (position, size, drawable) in
             (&positions, &sizes, &drawables).join()
         {
+            let mut printable = style(drawable.character);
+
+            if let Some(fg_color) = drawable.fg_color {
+                printable = printable.with(fg_color);
+            }
+            if let Some(bg_color) = drawable.bg_color {
+                printable = printable.on(bg_color);
+            }
+
             let pos_rounded =
                 (position.x.round() as i32, position.y.round() as i32);
             let size_rounded = (size.w.round() as i32, size.h.round() as i32);
@@ -36,7 +47,7 @@ impl<'a> System<'a> for DrawEntitiesSystem {
                     if let (Ok(x), Ok(y)) = (x.try_into(), y.try_into()) {
                         if x < room_size.0 && y < room_size.1 {
                             cursor.goto(x, y).unwrap();
-                            print!("{}", drawable.character);
+                            print!("{}", printable);
                         }
                     }
                 }

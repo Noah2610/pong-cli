@@ -1,4 +1,6 @@
-use crossterm::AlternateScreen;
+use std::str::FromStr;
+
+use crossterm::{AlternateScreen, Color};
 use specs::{Builder, Dispatcher, DispatcherBuilder, World, WorldExt};
 
 use crate::components::prelude::*;
@@ -138,11 +140,19 @@ fn create_paddles(world: &mut World) {
         right:  (settings.room.width - 1) as f32,
     };
 
+    let mut drawable = Drawable::new(paddle_char);
+    if let Some(fg_color_str) = &settings.paddle.fg_color {
+        drawable.add_fg_color(Color::from_str(fg_color_str).unwrap());
+    }
+    if let Some(bg_color_str) = &settings.paddle.bg_color {
+        drawable.add_bg_color(Color::from_str(bg_color_str).unwrap());
+    }
+
     // Left paddle
     let mut left_paddle = world
         .create_entity()
         .with(Paddle::new(Side::Left))
-        .with(Drawable::new(paddle_char))
+        .with(drawable.clone())
         .with(position_for_paddle(&settings, &Side::Left))
         .with(paddle_size.clone())
         .with(Velocity::default())
@@ -158,7 +168,7 @@ fn create_paddles(world: &mut World) {
     let mut right_paddle = world
         .create_entity()
         .with(Paddle::new(Side::Right))
-        .with(Drawable::new(paddle_char))
+        .with(drawable)
         .with(Position::new(
             settings.room.width as f32 - paddle_x,
             paddle_y,
