@@ -1,3 +1,5 @@
+use std::panic;
+
 use crossterm::AlternateScreen;
 use specs::{Builder, Dispatcher, DispatcherBuilder, World, WorldExt};
 
@@ -10,6 +12,8 @@ use crate::settings::prelude::*;
 pub fn run() {
     use std::thread::sleep;
     use std::time::Duration;
+
+    panic::set_hook(Box::new(on_panic));
 
     let (mut world, mut dispatcher) = setup();
 
@@ -26,16 +30,71 @@ pub fn run() {
         sleep(sleep_duration);
     }
 
-    cleanup(world);
+    cleanup(Some(world));
+}
+
+fn on_panic(panic_info: &panic::PanicInfo) {
+    cleanup(None);
+    eprintln!("{:#}", panic_info);
+}
+
+fn cleanup(world: Option<World>) {
+    if let Some(world) = world {
+        world.read_resource::<AlternateScreen>().to_main().unwrap();
+        world.read_resource::<TerminalCursor>().show().unwrap();
+    } else {
+        use crossterm::{execute, LeaveAlternateScreen};
+        use std::io::{stdout, Write};
+
+        execute!(stdout(), LeaveAlternateScreen).unwrap();
+        TerminalCursor::new().show().unwrap();
+    }
 }
 
 fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
-    use crate::systems::prelude::*;
-
     const RAW_MODE: bool = true;
 
     let mut world = World::new();
-    let dispatcher = DispatcherBuilder::new()
+    let dispatcher = new_dispatcher();
+
+    let cursor = TerminalCursor::new();
+    cursor.hide().unwrap();
+
+    // Register components
+    world.register::<Paddle>();
+    world.register::<Position>();
+    world.register::<Size>();
+    world.register::<Drawable>();
+    world.register::<Velocity>();
+    world.register::<Collider>();
+    world.register::<Collision>();
+    world.register::<PaddleAi>();
+    world.register::<Ball>();
+    world.register::<Confined>();
+
+    // Insert resources
+    let settings = load_settings();
+    world.insert(Deltatime::default());
+    world.insert(InputManager::new(settings.bindings.clone()));
+    world.insert(settings);
+    world.insert(AlternateScreen::to_alternate(RAW_MODE).unwrap());
+    world.insert(cursor);
+    world.insert(TerminalInput::new());
+    world.insert(Scores::default());
+    world.insert(ShouldReset::default());
+    world.insert(ShouldResetBallSpawns::default());
+
+    // Create entities
+    create_paddles(&mut world);
+    create_vertical_walls(&mut world);
+
+    (world, dispatcher)
+}
+
+fn new_dispatcher<'a, 'b>() -> Dispatcher<'a, 'b> {
+    use crate::systems::prelude::*;
+
+    DispatcherBuilder::new()
         .with(DeltatimeSystem::default(), "deltatime_system", &[])
         .with(InputSystem::default(), "input_system", &[])
         .with(
@@ -83,45 +142,7 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
             "draw_entities_system",
         ])
         .with(SpawnBallSystem::default(), "spawn_ball_system", &[])
-        .build();
-
-    let cursor = TerminalCursor::new();
-    cursor.hide().unwrap();
-
-    // Register components
-    world.register::<Paddle>();
-    world.register::<Position>();
-    world.register::<Size>();
-    world.register::<Drawable>();
-    world.register::<Velocity>();
-    world.register::<Collider>();
-    world.register::<Collision>();
-    world.register::<PaddleAi>();
-    world.register::<Ball>();
-    world.register::<Confined>();
-
-    // Insert resources
-    let settings = load_settings();
-    world.insert(Deltatime::default());
-    world.insert(InputManager::new(settings.bindings.clone()));
-    world.insert(settings);
-    world.insert(AlternateScreen::to_alternate(RAW_MODE).unwrap());
-    world.insert(cursor);
-    world.insert(TerminalInput::new());
-    world.insert(Scores::default());
-    world.insert(ShouldReset::default());
-    world.insert(ShouldResetBallSpawns::default());
-
-    // Create entities
-    create_paddles(&mut world);
-    create_vertical_walls(&mut world);
-
-    (world, dispatcher)
-}
-
-fn cleanup(world: World) {
-    world.read_resource::<AlternateScreen>().to_main().unwrap();
-    world.read_resource::<TerminalCursor>().show().unwrap();
+        .build()
 }
 
 fn create_paddles(world: &mut World) {
