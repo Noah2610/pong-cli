@@ -35,6 +35,6 @@ optional = true
 [features]
 default = ["random", "color"]
 
-nightly = ["specs/nightly"]
 random  = ["rand"]
 color   = ["crossterm/style"]
+nightly = ["specs/nightly"]

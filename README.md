@@ -24,6 +24,15 @@ then you can build and run the game with ...
 cargo run
 ```
 
+## Features
+| Feature   | Default? | Description |
+| :-------- | :------: | :---------- |
+| `random`  | __YES__  | Enables randomization for ball spawning directions.<br />See `settings.ron` file for configuration. |
+| `color`   | __YES__  | Adds configurable color to the game.<br />See `settings.ron` file for configuration. |
+| `nightly` | no       | Enables `specs/nightly` feature for debug/development purposes. |
+
+Use `--no-default-features` to disable all features when building with `cargo build/run`.
+
 ## License
 [MIT License][mit]
 
