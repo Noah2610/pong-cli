@@ -51,8 +51,9 @@ pub struct SettingsPaddle {
 
 #[derive(Clone, Deserialize)]
 pub struct SettingsPaddleAi {
-    pub left:  bool,
-    pub right: bool,
+    pub left:                   bool,
+    pub right:                  bool,
+    pub follow_padding_percent: f32,
 }
 
 #[derive(Clone, Deserialize)]

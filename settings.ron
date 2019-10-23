@@ -20,13 +20,22 @@
             left:  false,
             /// If right paddle should be an AI
             right: true,
+            /// Positional padding before the paddle will start following a ball.
+            /// This value is multiplied by the paddle's size.
+            /// If the ball is further away from the paddle's position than
+            ///   PADDLE_SIZE * FOLLOW_PADDING_PERCENT
+            /// then the paddle will start moving towards the ball.
+            /// So this value should stay at or below `0.5`, otherwise the paddle
+            /// won't move close enough to the ball.
+            /// The smaller the padding, the closer the paddle will try to move towards the ball.
+            follow_padding_percent: 0.4,
         ),
     ),
 
     ball: (
         /// The ball's size
         size: (2.0, 2.0),
-        /// Balls initial velocity
+        /// The ball's initial velocity
         velocity: (20.0, 2.0),
         /// Linearly increase velocity by this amount on each paddle hit
         velocity_increase: (2.0, 2.0),
