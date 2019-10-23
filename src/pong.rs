@@ -76,13 +76,13 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     let settings = load_settings();
     world.insert(Deltatime::default());
     world.insert(InputManager::new(settings.bindings.clone()));
-    world.insert(settings);
     world.insert(AlternateScreen::to_alternate(RAW_MODE).unwrap());
     world.insert(cursor);
     world.insert(TerminalInput::new());
-    world.insert(Scores::default());
+    world.insert(Scores::from(&settings.chars.score));
     world.insert(ShouldReset::default());
     world.insert(ShouldResetBallSpawns::default());
+    world.insert(settings);
 
     // Create entities
     create_paddles(&mut world);
