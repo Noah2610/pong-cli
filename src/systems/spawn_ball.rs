@@ -106,11 +106,12 @@ impl SpawnBallSystem {
     ) {
         let now = Instant::now();
 
-        let mut drawable = Drawable::new(settings.chars.ball);
-        if let Some(fg_color_str) = &settings.ball.fg_color {
+        let char_settings = &settings.chars.ball;
+        let mut drawable = Drawable::new(char_settings.character);
+        if let Some(fg_color_str) = &char_settings.fg_color {
             drawable.add_fg_color(Color::from_str(fg_color_str).unwrap());
         }
-        if let Some(bg_color_str) = &settings.ball.bg_color {
+        if let Some(bg_color_str) = &char_settings.bg_color {
             drawable.add_bg_color(Color::from_str(bg_color_str).unwrap());
         }
 

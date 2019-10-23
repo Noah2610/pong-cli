@@ -1,3 +1,4 @@
+#![enable(implicit_some)]
 (
     /// Sleep X ms between every update
     update_delay_ms: 50,
@@ -9,10 +10,6 @@
     ),
 
     paddle: (
-        /// Foreground color for the ball's character
-        fg_color: Some("Cyan"),
-        /// Background color for the ball's character
-        bg_color: Some("Cyan"),
         /// Paddles' size
         size: (2.0, 8.0),
         /// Paddles' speed
@@ -27,10 +24,6 @@
     ),
 
     ball: (
-        /// Foreground color for the ball's character
-        fg_color: Some("Blue"),
-        /// Background color for the ball's character
-        bg_color: Some("Blue"),
         /// The ball's size
         size: (2.0, 2.0),
         /// Balls initial velocity
@@ -91,7 +84,19 @@
         room_border_horizontal: '-',
         room_border_vertical:   '|',
         room_border_corner:     '=',
-        paddle:                 '#',
-        ball:                   'O',
+        paddle: (
+            character: '#',
+            /// Foreground color for the ball's character
+            fg_color: "Cyan",
+            /// Background color for the ball's character
+            bg_color: "Cyan",
+        ),
+        ball: (
+            character: 'O',
+            /// Foreground color for the ball's character
+            fg_color: "Blue",
+            /// Background color for the ball's character
+            bg_color: "Blue",
+        ),
     ),
 )

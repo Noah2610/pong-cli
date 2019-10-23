@@ -3,6 +3,7 @@ pub mod prelude {
     pub use super::BallSpawnDirectionY;
     pub use super::Settings;
     pub use super::SettingsBall;
+    pub use super::SettingsCharData;
     pub use super::SettingsChars;
     pub use super::SettingsInput;
     pub use super::SettingsInputPaddle;
@@ -111,11 +112,9 @@ pub struct SettingsRoom {
 
 #[derive(Clone, Deserialize)]
 pub struct SettingsPaddle {
-    pub fg_color: Option<String>,
-    pub bg_color: Option<String>,
-    pub size:     (f32, f32),
-    pub speed:    f32,
-    pub ai:       SettingsPaddleAi,
+    pub size:  (f32, f32),
+    pub speed: f32,
+    pub ai:    SettingsPaddleAi,
 }
 
 #[derive(Clone, Deserialize)]
@@ -126,8 +125,6 @@ pub struct SettingsPaddleAi {
 
 #[derive(Clone, Deserialize)]
 pub struct SettingsBall {
-    pub fg_color:              Option<String>,
-    pub bg_color:              Option<String>,
     pub size:                  (f32, f32),
     pub velocity:              (f32, f32),
     pub velocity_increase:     (f32, f32),
@@ -162,6 +159,13 @@ pub struct SettingsChars {
     pub room_border_horizontal: char,
     pub room_border_vertical:   char,
     pub room_border_corner:     char,
-    pub paddle:                 char,
-    pub ball:                   char,
+    pub paddle:                 SettingsCharData,
+    pub ball:                   SettingsCharData,
+}
+
+#[derive(Clone, Deserialize)]
+pub struct SettingsCharData {
+    pub character: char,
+    pub fg_color:  Option<String>,
+    pub bg_color:  Option<String>,
 }
