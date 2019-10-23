@@ -6,7 +6,7 @@ pub mod prelude {
     pub use super::deltatime::DeltatimeSystem;
     pub use super::draw_entities::DrawEntitiesSystem;
     pub use super::draw_room::DrawRoomSystem;
-    pub use super::draw_scores_system::DrawScoresSystem;
+    pub use super::draw_scores::DrawScoresSystem;
     pub use super::input::InputSystem;
     pub use super::move_entities::MoveEntitiesSystem;
     pub use super::move_paddles::MovePaddlesSystem;
@@ -48,7 +48,7 @@ mod control_paddles;
 mod deltatime;
 mod draw_entities;
 mod draw_room;
-mod draw_scores_system;
+mod draw_scores;
 mod input;
 mod move_entities;
 mod move_paddles;
