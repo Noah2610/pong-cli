@@ -100,16 +100,16 @@
         ),
         paddle: (
             character: '#',
-            fg_color: Cyan,
-            bg_color: Cyan,
-        ),
-        ball: (
-            character: 'O',
             fg_color: Blue,
             bg_color: Blue,
         ),
-        score: (
+        ball: (
+            character: 'O',
             fg_color: Red,
+            bg_color: Red,
+        ),
+        score: (
+            fg_color: Green,
         ),
         room: (
             border_horizontal: (
