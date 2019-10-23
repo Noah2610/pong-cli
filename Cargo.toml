@@ -16,7 +16,7 @@ categories = ["games", "command-line-utilities"]
 license = "MIT"
 
 [dependencies]
-crossterm = "0.11.1"
+crossterm = "0.12.1"
 ron       = "0.5.1"
 serde     = "1.0.101"
 specs     = { version = "0.15.1", features = ["specs-derive", "shred-derive"] }
