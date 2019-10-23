@@ -79,24 +79,41 @@
     ),
 
     /// Visual representation of the game; which characters to use for which objects
+    /// For a list of available color values, see here:
+    ///   https://github.com/Noah2610/pong-cli/blob/master/src/color.rs#L9
+    /// The `fg_color` and `bg_color` fields may be ommited to not colorize that character.
     chars: (
-        empty:                  ' ',
-        room_border_horizontal: '-',
-        room_border_vertical:   '|',
-        room_border_corner:     '=',
+        empty: (
+            character: ' ',
+            fg_color: Black,
+            bg_color: Black,
+        ),
         paddle: (
             character: '#',
-            /// Foreground color for the ball's character
             fg_color: Cyan,
-            /// Background color for the ball's character
             bg_color: Cyan,
         ),
         ball: (
             character: 'O',
-            /// Foreground color for the ball's character
             fg_color: Blue,
-            /// Background color for the ball's character
             bg_color: Blue,
+        ),
+        room: (
+            border_horizontal: (
+                character: '-',
+                fg_color: DarkGray,
+                bg_color: DarkGray,
+            ),
+            border_vertical: (
+                character: '|',
+                fg_color: DarkGray,
+                bg_color: DarkGray,
+            ),
+            border_corner: (
+                character: '=',
+                fg_color: DarkGray,
+                bg_color: DarkGray,
+            ),
         ),
     ),
 )

@@ -1,4 +1,7 @@
+use crossterm::{style, StyledObject};
+
 use crate::color::Color;
+use crate::components::prelude::Char;
 
 pub mod prelude {
     pub use super::BallSpawnDirectionX;
@@ -6,6 +9,7 @@ pub mod prelude {
     pub use super::Settings;
     pub use super::SettingsBall;
     pub use super::SettingsCharData;
+    pub use super::SettingsCharRoom;
     pub use super::SettingsChars;
     pub use super::SettingsInput;
     pub use super::SettingsInputPaddle;
@@ -157,17 +161,48 @@ pub struct SettingsInputPaddle {
 
 #[derive(Clone, Deserialize)]
 pub struct SettingsChars {
-    pub empty:                  char,
-    pub room_border_horizontal: char,
-    pub room_border_vertical:   char,
-    pub room_border_corner:     char,
-    pub paddle:                 SettingsCharData,
-    pub ball:                   SettingsCharData,
+    pub empty:  SettingsCharData,
+    pub paddle: SettingsCharData,
+    pub ball:   SettingsCharData,
+    pub room:   SettingsCharRoom,
 }
 
 #[derive(Clone, Deserialize)]
 pub struct SettingsCharData {
-    pub character: char,
+    pub character: Char,
     pub fg_color:  Option<Color>,
     pub bg_color:  Option<Color>,
+}
+
+impl Into<StyledObject<Char>> for &SettingsCharData {
+    fn into(self) -> StyledObject<Char> {
+        let mut styled = style(self.character);
+        if let Some(fg_color) = self.fg_color.as_ref() {
+            styled = styled.with(fg_color.into());
+        }
+        if let Some(bg_color) = self.bg_color.as_ref() {
+            styled = styled.on(bg_color.into());
+        }
+        return styled;
+    }
+}
+
+impl Into<StyledObject<String>> for &SettingsCharData {
+    fn into(self) -> StyledObject<String> {
+        let mut styled = style(self.character.to_string());
+        if let Some(fg_color) = self.fg_color.as_ref() {
+            styled = styled.with(fg_color.into());
+        }
+        if let Some(bg_color) = self.bg_color.as_ref() {
+            styled = styled.on(bg_color.into());
+        }
+        return styled;
+    }
+}
+
+#[derive(Clone, Deserialize)]
+pub struct SettingsCharRoom {
+    pub border_horizontal: SettingsCharData,
+    pub border_vertical:   SettingsCharData,
+    pub border_corner:     SettingsCharData,
 }

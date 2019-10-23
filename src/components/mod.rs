@@ -8,7 +8,7 @@ pub mod prelude {
         CollisionType,
     };
     pub use super::confined::Confined;
-    pub use super::drawable::Drawable;
+    pub use super::drawable::{Char, Drawable};
     pub use super::paddle::{MoveDirection, Paddle, PaddleThird};
     pub use super::paddle_ai::PaddleAi;
     pub use super::position::Position;
