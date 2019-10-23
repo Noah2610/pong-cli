@@ -1,3 +1,4 @@
+#[cfg(feature = "color")]
 use std::convert::Into;
 use std::fmt;
 

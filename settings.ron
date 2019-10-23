@@ -78,10 +78,13 @@
         ),
     ),
 
-    /// Visual representation of the game; which characters to use for which objects
+    /// Visual representation of the game; which characters to use for which objects.
     /// For a list of available color values, see here:
     ///   https://github.com/Noah2610/pong-cli/blob/master/src/color.rs#L9
     /// The `fg_color` and `bg_color` fields may be ommited to not colorize that character.
+    /// The game must be built with the `color` feature for the color fields to work;
+    /// color settings will be ignored otherwise.
+    /// Note that colors may slow-down the rendering of the game.
     chars: (
         empty: (
             character: ' ',
