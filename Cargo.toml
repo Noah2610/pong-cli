@@ -16,14 +16,25 @@ categories = ["games", "command-line-utilities"]
 license = "MIT"
 
 [dependencies]
-crossterm = "0.12.1"
-ron       = "0.5.1"
-serde     = "1.0.101"
-specs     = { version = "0.15.1", features = ["specs-derive", "shred-derive"] }
-rand      = { version = "0.7.2", optional = true }
+ron   = "0.5.1"
+serde = "1.0.101"
+
+[dependencies.crossterm]
+version = "0.12.1"
+default_features = false
+features = ["input", "cursor", "screen"]
+
+[dependencies.specs]
+version  = "0.15.1"
+features = ["specs-derive", "shred-derive"]
+
+[dependencies.rand]
+version  = "0.7.2"
+optional = true
 
 [features]
-default = ["random"]
+default = ["random", "color"]
 
 nightly = ["specs/nightly"]
 random  = ["rand"]
+color   = ["crossterm/style"]

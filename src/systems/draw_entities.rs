@@ -1,7 +1,5 @@
 use std::convert::TryInto;
 
-use crossterm::style;
-
 use super::system_prelude::*;
 
 #[derive(Default)]
@@ -25,14 +23,7 @@ impl<'a> System<'a> for DrawEntitiesSystem {
         for (position, size, drawable) in
             (&positions, &sizes, &drawables).join()
         {
-            let mut printable = style(drawable.character);
-
-            if let Some(fg_color) = drawable.fg_color {
-                printable = printable.with(fg_color);
-            }
-            if let Some(bg_color) = drawable.bg_color {
-                printable = printable.on(bg_color);
-            }
+            let printable = drawable.to_string();
 
             let pos_rounded =
                 (position.x.round() as i32, position.y.round() as i32);

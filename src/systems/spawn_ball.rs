@@ -104,13 +104,7 @@ impl SpawnBallSystem {
         let now = Instant::now();
 
         let char_settings = &settings.chars.ball;
-        let mut drawable = Drawable::new(char_settings.character);
-        if let Some(fg_color) = &char_settings.fg_color {
-            drawable.add_fg_color(fg_color);
-        }
-        if let Some(bg_color) = &char_settings.bg_color {
-            drawable.add_bg_color(bg_color);
-        }
+        let drawable = char_settings.into();
 
         let ball_entity = entities
             .build_entity()

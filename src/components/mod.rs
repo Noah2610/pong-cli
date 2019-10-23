@@ -26,6 +26,7 @@ pub mod component_prelude {
         VecStorage,
     };
 
+    #[cfg(feature = "color")]
     pub use crate::color::{Color, CrossColor};
     pub use crate::geo::prelude::*;
 }

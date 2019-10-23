@@ -1,7 +1,9 @@
+#[cfg(feature = "color")]
 use crossterm::{style, StyledObject};
 
+#[cfg(feature = "color")]
 use crate::color::Color;
-use crate::components::prelude::Char;
+use crate::components::prelude::{Char, Drawable};
 
 pub mod prelude {
     pub use super::BallSpawnDirectionX;
@@ -170,10 +172,13 @@ pub struct SettingsChars {
 #[derive(Clone, Deserialize)]
 pub struct SettingsCharData {
     pub character: Char,
-    pub fg_color:  Option<Color>,
-    pub bg_color:  Option<Color>,
+    #[cfg(feature = "color")]
+    pub fg_color: Option<Color>,
+    #[cfg(feature = "color")]
+    pub bg_color: Option<Color>,
 }
 
+#[cfg(feature = "color")]
 impl Into<StyledObject<Char>> for &SettingsCharData {
     fn into(self) -> StyledObject<Char> {
         let mut styled = style(self.character);
@@ -187,6 +192,7 @@ impl Into<StyledObject<Char>> for &SettingsCharData {
     }
 }
 
+#[cfg(feature = "color")]
 impl Into<StyledObject<String>> for &SettingsCharData {
     fn into(self) -> StyledObject<String> {
         let mut styled = style(self.character.to_string());
@@ -197,6 +203,22 @@ impl Into<StyledObject<String>> for &SettingsCharData {
             styled = styled.on(bg_color.into());
         }
         return styled;
+    }
+}
+
+impl Into<Drawable> for &SettingsCharData {
+    fn into(self) -> Drawable {
+        let mut drawable = Drawable::new(self.character);
+        #[cfg(feature = "color")]
+        {
+            if let Some(fg_color) = self.fg_color.as_ref() {
+                drawable.add_fg_color(fg_color);
+            }
+            if let Some(bg_color) = self.bg_color.as_ref() {
+                drawable.add_bg_color(bg_color);
+            }
+        }
+        drawable
     }
 }
 

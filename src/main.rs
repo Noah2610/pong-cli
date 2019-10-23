@@ -6,6 +6,7 @@ extern crate ron;
 extern crate serde;
 extern crate specs;
 
+#[cfg(feature = "color")]
 mod color;
 mod components;
 mod geo;

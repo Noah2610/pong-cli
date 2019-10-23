@@ -138,13 +138,7 @@ fn create_paddles(world: &mut World) {
         right:  (settings.room.width - 1) as f32,
     };
 
-    let mut drawable = Drawable::new(paddle_char.character);
-    if let Some(fg_color) = &paddle_char.fg_color {
-        drawable.add_fg_color(fg_color);
-    }
-    if let Some(bg_color) = &paddle_char.bg_color {
-        drawable.add_bg_color(bg_color);
-    }
+    let drawable: Drawable = paddle_char.into();
 
     // Left paddle
     let mut left_paddle = world
