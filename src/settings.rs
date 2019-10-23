@@ -1,3 +1,5 @@
+use crate::color::Color;
+
 pub mod prelude {
     pub use super::BallSpawnDirectionX;
     pub use super::BallSpawnDirectionY;
@@ -166,6 +168,6 @@ pub struct SettingsChars {
 #[derive(Clone, Deserialize)]
 pub struct SettingsCharData {
     pub character: char,
-    pub fg_color:  Option<String>,
-    pub bg_color:  Option<String>,
+    pub fg_color:  Option<Color>,
+    pub bg_color:  Option<Color>,
 }

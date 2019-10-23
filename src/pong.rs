@@ -1,6 +1,4 @@
-use std::str::FromStr;
-
-use crossterm::{AlternateScreen, Color};
+use crossterm::AlternateScreen;
 use specs::{Builder, Dispatcher, DispatcherBuilder, World, WorldExt};
 
 use crate::components::prelude::*;
@@ -141,11 +139,11 @@ fn create_paddles(world: &mut World) {
     };
 
     let mut drawable = Drawable::new(paddle_char.character);
-    if let Some(fg_color_str) = &paddle_char.fg_color {
-        drawable.add_fg_color(Color::from_str(fg_color_str).unwrap());
+    if let Some(fg_color) = &paddle_char.fg_color {
+        drawable.add_fg_color(fg_color);
     }
-    if let Some(bg_color_str) = &paddle_char.bg_color {
-        drawable.add_bg_color(Color::from_str(bg_color_str).unwrap());
+    if let Some(bg_color) = &paddle_char.bg_color {
+        drawable.add_bg_color(bg_color);
     }
 
     // Left paddle

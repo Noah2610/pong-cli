@@ -87,16 +87,16 @@
         paddle: (
             character: '#',
             /// Foreground color for the ball's character
-            fg_color: "Cyan",
+            fg_color: Cyan,
             /// Background color for the ball's character
-            bg_color: "Cyan",
+            bg_color: Cyan,
         ),
         ball: (
             character: 'O',
             /// Foreground color for the ball's character
-            fg_color: "Blue",
+            fg_color: Blue,
             /// Background color for the ball's character
-            bg_color: "Blue",
+            bg_color: Blue,
         ),
     ),
 )

@@ -1,4 +1,4 @@
-use crossterm::{AsyncReader, InputEvent, KeyEvent};
+use crossterm::{AsyncReader, InputEvent};
 
 use super::system_prelude::*;
 

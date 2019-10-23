@@ -6,6 +6,7 @@ extern crate ron;
 extern crate serde;
 extern crate specs;
 
+mod color;
 mod components;
 mod geo;
 mod helpers;
