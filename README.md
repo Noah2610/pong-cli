@@ -9,9 +9,19 @@ or let _two_ AIs fight it out!
 Everything is configurable and commented within the [`settings.ron`][settings.ron] file.
 
 ## Installation
+### From crates.io
 __TODO:__ See [issue #2][issue-settings], then publish to crates.io
 
-For now you'll need to clone the whole repo and build the crate yourself.  
+### Binaries
+Binaries for Linux and Windows are available from the [releases] GitHub page.  
+From there, simply download the `.zip` file for your platform,  
+extract the archive and run the executable:  
+- `pong-cli` for Linux
+  __TODO:__ Add `.desktop` file for Linux file manager GUIs
+- `pong-cli.exe` for Windows
+
+### From source
+To build the game from source, you'll need to clone the repo and compile the game using `cargo`.  
 You'll need to have `rust` version __1.38.0__ or higher installed.  
 
 Clone the repository with ...
@@ -21,7 +31,7 @@ git clone https://github.com/Noah2610/pong-cli
 `cd` into the project's root with `cd pong-cli`,  
 then you can build and run the game with ...
 ```
-cargo run
+cargo run --release
 ```
 
 ## Features
