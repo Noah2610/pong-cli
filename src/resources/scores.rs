@@ -3,6 +3,7 @@ use std::fmt;
 #[cfg(feature = "color")]
 use crate::color::CrossColor;
 use crate::geo::Side;
+use crate::settings::prelude::*;
 
 #[derive(Default, Clone)]
 pub struct Score {
@@ -66,42 +67,36 @@ impl Scores {
     }
 }
 
-impl From<&Option<crate::settings::SettingsCharScore>> for Scores {
+impl From<&SettingsCharData> for Scores {
     #[cfg(feature = "color")]
-    fn from(
-        char_settings: &Option<crate::settings::SettingsCharScore>,
-    ) -> Self {
-        if let Some(char_settings) = char_settings {
-            let fg_color = if let Some(fg) = char_settings.fg_color.as_ref() {
-                Some(fg.into())
-            } else {
-                None
-            };
-            let bg_color = if let Some(bg) = char_settings.bg_color.as_ref() {
-                Some(bg.into())
-            } else {
-                None
-            };
-
-            Self {
-                left_paddle:  Score {
-                    fg_color,
-                    bg_color,
-                    ..Default::default()
-                },
-                right_paddle: Score {
-                    fg_color,
-                    bg_color,
-                    ..Default::default()
-                },
-            }
+    fn from(char_data: &SettingsCharData) -> Self {
+        let fg_color = if let Some(fg) = char_data.fg_color.as_ref() {
+            Some(fg.into())
         } else {
-            Self::default()
+            None
+        };
+        let bg_color = if let Some(bg) = char_data.bg_color.as_ref() {
+            Some(bg.into())
+        } else {
+            None
+        };
+
+        Self {
+            left_paddle:  Score {
+                fg_color,
+                bg_color,
+                ..Default::default()
+            },
+            right_paddle: Score {
+                fg_color,
+                bg_color,
+                ..Default::default()
+            },
         }
     }
 
     #[cfg(not(feature = "color"))]
-    fn from(_: &Option<crate::settings::SettingsCharScore>) -> Self {
+    fn from(_: &SettingsCharData) -> Self {
         Self::default()
     }
 }

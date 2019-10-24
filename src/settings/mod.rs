@@ -10,7 +10,6 @@ pub mod prelude {
     pub use super::Settings;
     pub use super::SettingsBall;
     pub use super::SettingsCharRoom;
-    pub use super::SettingsCharScore;
     pub use super::SettingsChars;
     pub use super::SettingsInput;
     pub use super::SettingsInputPaddle;
@@ -91,16 +90,8 @@ pub struct SettingsChars {
     pub empty:  SettingsCharData,
     pub paddle: SettingsCharData,
     pub ball:   SettingsCharData,
-    pub score:  Option<SettingsCharScore>,
+    pub score:  SettingsCharData,
     pub room:   SettingsCharRoom,
-}
-
-#[derive(Clone, Deserialize)]
-pub struct SettingsCharScore {
-    #[cfg(feature = "color")]
-    pub fg_color: Option<Color>,
-    #[cfg(feature = "color")]
-    pub bg_color: Option<Color>,
 }
 
 #[derive(Clone, Deserialize)]
