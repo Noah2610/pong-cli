@@ -34,7 +34,7 @@
 
     ball: (
         /// The ball's size
-        size: (2.0, 2.0),
+        size: (4.0, 2.0),
         /// The ball's initial velocity
         velocity: (20.0, 2.0),
         /// Linearly increase velocity by this amount on each paddle hit
@@ -78,12 +78,12 @@
     bindings: (
         quit: ["q", "Ctrl+c", "Esc"],
         paddle_left: (
-            up:   ["w"],
-            down: ["s"],
+            up:   ["w", "k"],
+            down: ["s", "j"],
         ),
         paddle_right: (
-            up:   ["k", "Up"],
-            down: ["j", "Down"],
+            up:   ["Up", "k"],
+            down: ["Down", "j"],
         ),
     ),
 
