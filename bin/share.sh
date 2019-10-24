@@ -22,8 +22,6 @@ function cargo_cmd {
         "$cargo_subcmd"
         "$features_str"
         "${args[@]}"
-        ";"
-        "read"
     )
     local run_msg
     run_msg="$( colored "$COLOR_MSG_STRONG" "RUNNING:" ) $( colored "$COLOR_CODE" "${cmd[*]}" )"

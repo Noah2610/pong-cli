@@ -11,7 +11,7 @@
 
     paddle: (
         /// Paddles' size
-        size: (2.0, 8.0),
+        size: (1.0, 8.0),
         /// Paddles' speed
         speed: 20.0,
         /// Paddle AI settings
@@ -100,7 +100,7 @@
         ),
         paddle: (
             character: '#',
-            fg_color: Blue,
+            fg_color: Red,
             bg_color: Blue,
         ),
         ball: (
