@@ -141,7 +141,7 @@ fn new_dispatcher<'a, 'b>() -> Dispatcher<'a, 'b> {
             "draw_room_system",
             "draw_entities_system",
         ])
-        // .with(SpawnBallSystem::default(), "spawn_ball_system", &[])
+        .with(SpawnBallSystem::default(), "spawn_ball_system", &[])
         .build()
 }
 
