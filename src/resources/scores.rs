@@ -1,7 +1,5 @@
 use std::fmt;
 
-#[cfg(feature = "style")]
-use crate::color::CrossColor;
 use crate::geo::Side;
 use crate::settings::prelude::*;
 
@@ -9,9 +7,7 @@ use crate::settings::prelude::*;
 pub struct Score {
     score: u32,
     #[cfg(feature = "style")]
-    fg_color: Option<CrossColor>,
-    #[cfg(feature = "style")]
-    bg_color: Option<CrossColor>,
+    style: StyleData,
 }
 
 impl fmt::Display for Score {
@@ -20,11 +16,11 @@ impl fmt::Display for Score {
         use crossterm::style;
 
         let mut styled = style(self.score);
-        if let Some(fg_color) = self.fg_color {
-            styled = styled.with(fg_color);
+        if let Some(fg_color) = self.style.fg_color.as_ref() {
+            styled = styled.with(fg_color.into());
         }
-        if let Some(bg_color) = self.bg_color {
-            styled = styled.on(bg_color);
+        if let Some(bg_color) = self.style.bg_color.as_ref() {
+            styled = styled.on(bg_color.into());
         }
         write!(f, "{}", styled)
     }
@@ -70,26 +66,13 @@ impl Scores {
 impl From<&SettingsCharData> for Scores {
     #[cfg(feature = "style")]
     fn from(char_data: &SettingsCharData) -> Self {
-        let fg_color = if let Some(fg) = char_data.fg_color.as_ref() {
-            Some(fg.into())
-        } else {
-            None
-        };
-        let bg_color = if let Some(bg) = char_data.bg_color.as_ref() {
-            Some(bg.into())
-        } else {
-            None
-        };
-
         Self {
             left_paddle:  Score {
-                fg_color,
-                bg_color,
+                style: char_data.style(),
                 ..Default::default()
             },
             right_paddle: Score {
-                fg_color,
-                bg_color,
+                style: char_data.style(),
                 ..Default::default()
             },
         }

@@ -1,12 +1,9 @@
-#[cfg(feature = "style")]
-use crate::color::Color;
-
 pub mod prelude {
     pub use super::ball_spawn_directions::{
         BallSpawnDirectionX,
         BallSpawnDirectionY,
     };
-    pub use super::char_data::SettingsCharData;
+    pub use super::char_data::{SettingsCharData, StyleData};
     pub use super::Settings;
     pub use super::SettingsBall;
     pub use super::SettingsCharRoom;

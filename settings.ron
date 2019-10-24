@@ -100,32 +100,44 @@
         ),
         paddle: (
             character: '#',
-            fg_color: Blue,
-            bg_color: Blue,
+            style: (
+                fg_color: Blue,
+                bg_color: Blue,
+            ),
         ),
         ball: (
             character: 'O',
-            fg_color: Red,
-            bg_color: Red,
+            style: (
+                fg_color: Red,
+                bg_color: Red,
+            ),
         ),
         score: (
-            fg_color: Green,
+            style: (
+                fg_color: Green,
+            ),
         ),
         room: (
             border_horizontal: (
                 character: '-',
-                fg_color: DarkGray,
-                bg_color: DarkGray,
+                style: (
+                    fg_color: DarkGray,
+                    bg_color: DarkGray,
+                ),
             ),
             border_vertical: (
                 character: '|',
-                fg_color: DarkGray,
-                bg_color: DarkGray,
+                style: (
+                    fg_color: DarkGray,
+                    bg_color: DarkGray,
+                ),
             ),
             border_corner: (
                 character: '=',
-                fg_color: DarkGray,
-                bg_color: DarkGray,
+                style: (
+                    fg_color: DarkGray,
+                    bg_color: DarkGray,
+                ),
             ),
         ),
     ),

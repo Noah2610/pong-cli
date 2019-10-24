@@ -6,6 +6,8 @@ use std::fmt;
 use crossterm::{style, StyledObject};
 
 use super::component_prelude::*;
+#[cfg(feature = "style")]
+use crate::settings::prelude::StyleData;
 
 pub type Char = char;
 
@@ -14,9 +16,7 @@ pub type Char = char;
 pub struct Drawable {
     pub character: Char,
     #[cfg(feature = "style")]
-    pub fg_color: Option<CrossColor>,
-    #[cfg(feature = "style")]
-    pub bg_color: Option<CrossColor>,
+    pub style: StyleData,
 }
 
 impl Drawable {
@@ -24,26 +24,16 @@ impl Drawable {
         Self {
             character,
             #[cfg(feature = "style")]
-            fg_color: None,
-            #[cfg(feature = "style")]
-            bg_color: None,
+            style: StyleData {
+                fg_color: None,
+                bg_color: None,
+            },
         }
     }
 
     #[cfg(feature = "style")]
-    pub fn add_fg_color<T>(&mut self, color: T)
-    where
-        T: Into<CrossColor>,
-    {
-        self.fg_color = Some(color.into());
-    }
-
-    #[cfg(feature = "style")]
-    pub fn add_bg_color<T>(&mut self, color: T)
-    where
-        T: Into<CrossColor>,
-    {
-        self.bg_color = Some(color.into());
+    pub fn add_style(&mut self, style: StyleData) {
+        self.style = style;
     }
 }
 
@@ -51,11 +41,11 @@ impl Drawable {
 impl Into<StyledObject<Char>> for &Drawable {
     fn into(self) -> StyledObject<Char> {
         let mut styled = style(self.character);
-        if let Some(fg_color) = self.fg_color {
-            styled = styled.with(fg_color);
+        if let Some(fg_color) = &self.style.fg_color {
+            styled = styled.with(fg_color.into());
         }
-        if let Some(bg_color) = self.bg_color {
-            styled = styled.on(bg_color);
+        if let Some(bg_color) = &self.style.bg_color {
+            styled = styled.on(bg_color.into());
         }
         return styled;
     }

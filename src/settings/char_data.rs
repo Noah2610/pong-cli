@@ -8,13 +8,35 @@ use crossterm::{style, StyledObject};
 use crate::color::Color;
 use crate::components::prelude::{Char, Drawable};
 
+#[cfg(feature = "style")]
+#[derive(Clone, Copy, Default, Deserialize)]
+pub struct StyleData {
+    pub fg_color: Option<Color>,
+    pub bg_color: Option<Color>,
+}
+
+#[cfg(feature = "style")]
+impl StyleData {
+    pub fn add_fg_color<T>(&mut self, color: T)
+    where
+        T: Into<Color>,
+    {
+        self.fg_color = Some(color.into());
+    }
+
+    pub fn add_bg_color<T>(&mut self, color: T)
+    where
+        T: Into<Color>,
+    {
+        self.bg_color = Some(color.into());
+    }
+}
+
 #[derive(Clone, Deserialize)]
 pub struct SettingsCharData {
     pub character: Option<Char>,
     #[cfg(feature = "style")]
-    pub fg_color: Option<Color>,
-    #[cfg(feature = "style")]
-    pub bg_color: Option<Color>,
+    pub style: Option<StyleData>,
 }
 
 impl SettingsCharData {
@@ -23,14 +45,22 @@ impl SettingsCharData {
     }
 
     #[cfg(feature = "style")]
-    fn styled_object<T>(&self, mut styled: StyledObject<T>) -> StyledObject<T>
+    pub fn style(&self) -> StyleData {
+        self.style.unwrap_or(StyleData::default())
+    }
+
+    #[cfg(feature = "style")]
+    pub fn styled_object<T>(
+        &self,
+        mut styled: StyledObject<T>,
+    ) -> StyledObject<T>
     where
         T: Clone + fmt::Display,
     {
-        if let Some(fg_color) = self.fg_color.as_ref() {
+        if let Some(fg_color) = self.style().fg_color.as_ref() {
             styled = styled.with(fg_color.into());
         }
-        if let Some(bg_color) = self.bg_color.as_ref() {
+        if let Some(bg_color) = self.style().bg_color.as_ref() {
             styled = styled.on(bg_color.into());
         }
         styled
@@ -57,12 +87,7 @@ impl Into<Drawable> for &SettingsCharData {
     #[cfg(feature = "style")]
     fn into(self) -> Drawable {
         let mut drawable = Drawable::new(self.character());
-        if let Some(fg_color) = self.fg_color.as_ref() {
-            drawable.add_fg_color(fg_color);
-        }
-        if let Some(bg_color) = self.bg_color.as_ref() {
-            drawable.add_bg_color(bg_color);
-        }
+        drawable.add_style(self.style().clone());
         drawable
     }
 

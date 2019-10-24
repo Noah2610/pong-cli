@@ -5,7 +5,7 @@ pub use crossterm::Color as CrossColor;
 /// Almost an exact copy of `crossterm::Color`.
 /// The reason for this is to implement `Deserialize` for it,
 /// so configuring color through the settings.ron file is more coherent.
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Copy, Deserialize)]
 pub enum Color {
     Black,
     Blue,
