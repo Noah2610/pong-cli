@@ -32,7 +32,7 @@ mod system_prelude {
         WriteStorage,
     };
 
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     pub use crate::color::{Color, CrossColor};
     pub use crate::components::prelude::*;
     pub use crate::geo::prelude::*;

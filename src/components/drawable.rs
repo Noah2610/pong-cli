@@ -1,8 +1,8 @@
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 use std::convert::Into;
 use std::fmt;
 
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 use crossterm::{style, StyledObject};
 
 use super::component_prelude::*;
@@ -13,9 +13,9 @@ pub type Char = char;
 #[storage(VecStorage)]
 pub struct Drawable {
     pub character: Char,
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     pub fg_color: Option<CrossColor>,
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     pub bg_color: Option<CrossColor>,
 }
 
@@ -23,14 +23,14 @@ impl Drawable {
     pub fn new(character: Char) -> Self {
         Self {
             character,
-            #[cfg(feature = "color")]
+            #[cfg(feature = "style")]
             fg_color: None,
-            #[cfg(feature = "color")]
+            #[cfg(feature = "style")]
             bg_color: None,
         }
     }
 
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     pub fn add_fg_color<T>(&mut self, color: T)
     where
         T: Into<CrossColor>,
@@ -38,7 +38,7 @@ impl Drawable {
         self.fg_color = Some(color.into());
     }
 
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     pub fn add_bg_color<T>(&mut self, color: T)
     where
         T: Into<CrossColor>,
@@ -47,7 +47,7 @@ impl Drawable {
     }
 }
 
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 impl Into<StyledObject<Char>> for &Drawable {
     fn into(self) -> StyledObject<Char> {
         let mut styled = style(self.character);
@@ -61,7 +61,7 @@ impl Into<StyledObject<Char>> for &Drawable {
     }
 }
 
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 impl fmt::Display for Drawable {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let d: StyledObject<Char> = self.into();
@@ -69,7 +69,7 @@ impl fmt::Display for Drawable {
     }
 }
 
-#[cfg(not(feature = "color"))]
+#[cfg(not(feature = "style"))]
 impl fmt::Display for Drawable {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.character)

@@ -33,8 +33,8 @@ version  = "0.7.2"
 optional = true
 
 [features]
-default = ["random", "color"]
+default = ["random", "style"]
 
 random  = ["rand"]
-color   = ["crossterm/style"]
+style   = ["crossterm/style"]
 nightly = ["specs/nightly"]

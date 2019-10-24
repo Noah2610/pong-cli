@@ -1,19 +1,19 @@
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 use std::fmt;
 
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 use crossterm::{style, StyledObject};
 
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 use crate::color::Color;
 use crate::components::prelude::{Char, Drawable};
 
 #[derive(Clone, Deserialize)]
 pub struct SettingsCharData {
     pub character: Option<Char>,
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     pub fg_color: Option<Color>,
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     pub bg_color: Option<Color>,
 }
 
@@ -22,7 +22,7 @@ impl SettingsCharData {
         self.character.unwrap_or(Char::default())
     }
 
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     fn styled_object<T>(&self, mut styled: StyledObject<T>) -> StyledObject<T>
     where
         T: Clone + fmt::Display,
@@ -37,7 +37,7 @@ impl SettingsCharData {
     }
 }
 
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 impl Into<StyledObject<Char>> for &SettingsCharData {
     fn into(self) -> StyledObject<Char> {
         let styled = style(self.character());
@@ -45,7 +45,7 @@ impl Into<StyledObject<Char>> for &SettingsCharData {
     }
 }
 
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 impl Into<StyledObject<String>> for &SettingsCharData {
     fn into(self) -> StyledObject<String> {
         let styled = style(self.character().to_string());
@@ -54,7 +54,7 @@ impl Into<StyledObject<String>> for &SettingsCharData {
 }
 
 impl Into<Drawable> for &SettingsCharData {
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     fn into(self) -> Drawable {
         let mut drawable = Drawable::new(self.character());
         if let Some(fg_color) = self.fg_color.as_ref() {
@@ -66,7 +66,7 @@ impl Into<Drawable> for &SettingsCharData {
         drawable
     }
 
-    #[cfg(not(feature = "color"))]
+    #[cfg(not(feature = "style"))]
     fn into(self) -> Drawable {
         Drawable::new(self.character())
     }

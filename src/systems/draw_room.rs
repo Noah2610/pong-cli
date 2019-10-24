@@ -1,4 +1,4 @@
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 use crossterm::StyledObject;
 
 use super::system_prelude::*;
@@ -16,7 +16,7 @@ impl<'a> System<'a> for DrawRoomSystem {
     }
 }
 
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 fn printable_maybe_repeat(
     character: &SettingsCharData,
     repeat: Option<usize>,
@@ -28,7 +28,7 @@ fn printable_maybe_repeat(
     printable
 }
 
-#[cfg(not(feature = "color"))]
+#[cfg(not(feature = "style"))]
 fn printable_maybe_repeat(
     character: &SettingsCharData,
     repeat: Option<usize>,

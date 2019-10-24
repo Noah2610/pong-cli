@@ -1,4 +1,4 @@
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 use crate::color::Color;
 
 pub mod prelude {

@@ -1,6 +1,6 @@
 use std::fmt;
 
-#[cfg(feature = "color")]
+#[cfg(feature = "style")]
 use crate::color::CrossColor;
 use crate::geo::Side;
 use crate::settings::prelude::*;
@@ -8,14 +8,14 @@ use crate::settings::prelude::*;
 #[derive(Default, Clone)]
 pub struct Score {
     score: u32,
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     fg_color: Option<CrossColor>,
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     bg_color: Option<CrossColor>,
 }
 
 impl fmt::Display for Score {
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         use crossterm::style;
 
@@ -29,7 +29,7 @@ impl fmt::Display for Score {
         write!(f, "{}", styled)
     }
 
-    #[cfg(not(feature = "color"))]
+    #[cfg(not(feature = "style"))]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.score)
     }
@@ -68,7 +68,7 @@ impl Scores {
 }
 
 impl From<&SettingsCharData> for Scores {
-    #[cfg(feature = "color")]
+    #[cfg(feature = "style")]
     fn from(char_data: &SettingsCharData) -> Self {
         let fg_color = if let Some(fg) = char_data.fg_color.as_ref() {
             Some(fg.into())
@@ -95,7 +95,7 @@ impl From<&SettingsCharData> for Scores {
         }
     }
 
-    #[cfg(not(feature = "color"))]
+    #[cfg(not(feature = "style"))]
     fn from(_: &SettingsCharData) -> Self {
         Self::default()
     }
