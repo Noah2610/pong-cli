@@ -1,4 +1,7 @@
 #[cfg(feature = "color")]
+use std::fmt;
+
+#[cfg(feature = "color")]
 use crossterm::{style, StyledObject};
 
 #[cfg(feature = "color")]
@@ -7,45 +10,53 @@ use crate::components::prelude::{Char, Drawable};
 
 #[derive(Clone, Deserialize)]
 pub struct SettingsCharData {
-    pub character: Char,
+    pub character: Option<Char>,
     #[cfg(feature = "color")]
     pub fg_color: Option<Color>,
     #[cfg(feature = "color")]
     pub bg_color: Option<Color>,
 }
 
-#[cfg(feature = "color")]
-impl Into<StyledObject<Char>> for &SettingsCharData {
-    fn into(self) -> StyledObject<Char> {
-        let mut styled = style(self.character);
+impl SettingsCharData {
+    pub fn character(&self) -> Char {
+        self.character.unwrap_or(Char::default())
+    }
+
+    #[cfg(feature = "color")]
+    fn styled_object<T>(&self, mut styled: StyledObject<T>) -> StyledObject<T>
+    where
+        T: Clone + fmt::Display,
+    {
         if let Some(fg_color) = self.fg_color.as_ref() {
             styled = styled.with(fg_color.into());
         }
         if let Some(bg_color) = self.bg_color.as_ref() {
             styled = styled.on(bg_color.into());
         }
-        return styled;
+        styled
+    }
+}
+
+#[cfg(feature = "color")]
+impl Into<StyledObject<Char>> for &SettingsCharData {
+    fn into(self) -> StyledObject<Char> {
+        let styled = style(self.character());
+        return self.styled_object(styled);
     }
 }
 
 #[cfg(feature = "color")]
 impl Into<StyledObject<String>> for &SettingsCharData {
     fn into(self) -> StyledObject<String> {
-        let mut styled = style(self.character.to_string());
-        if let Some(fg_color) = self.fg_color.as_ref() {
-            styled = styled.with(fg_color.into());
-        }
-        if let Some(bg_color) = self.bg_color.as_ref() {
-            styled = styled.on(bg_color.into());
-        }
-        return styled;
+        let styled = style(self.character().to_string());
+        return self.styled_object(styled);
     }
 }
 
 impl Into<Drawable> for &SettingsCharData {
     #[cfg(feature = "color")]
     fn into(self) -> Drawable {
-        let mut drawable = Drawable::new(self.character);
+        let mut drawable = Drawable::new(self.character());
         if let Some(fg_color) = self.fg_color.as_ref() {
             drawable.add_fg_color(fg_color);
         }
@@ -57,6 +68,6 @@ impl Into<Drawable> for &SettingsCharData {
 
     #[cfg(not(feature = "color"))]
     fn into(self) -> Drawable {
-        Drawable::new(self.character)
+        Drawable::new(self.character())
     }
 }

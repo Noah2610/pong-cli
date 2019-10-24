@@ -33,7 +33,7 @@ fn printable_maybe_repeat(
     character: &SettingsCharData,
     repeat: Option<usize>,
 ) -> String {
-    let s = character.character.to_string();
+    let s = character.character().to_string();
     if let Some(repeat) = repeat {
         s.repeat(repeat)
     } else {
