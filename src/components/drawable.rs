@@ -19,10 +19,7 @@ impl Drawable {
         Self {
             character,
             #[cfg(feature = "style")]
-            style: StyleData {
-                fg_color: None,
-                bg_color: None,
-            },
+            style: StyleData::default(),
         }
     }
 

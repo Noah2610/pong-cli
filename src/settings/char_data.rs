@@ -16,7 +16,7 @@ impl SettingsCharData {
 
     #[cfg(feature = "style")]
     pub fn style(&self) -> StyleData {
-        self.style.unwrap_or(StyleData::default())
+        self.style.clone().unwrap_or(StyleData::default())
     }
 }
 
