@@ -32,6 +32,9 @@
 #   $RELEASE_EXE_NAME_OUTPUT
 #     Name of the executable to be included in the release.
 #     DEFAULT: same as $RELEASE_EXE_NAME
+#   #RELEASE_RUST_TARGET_DIR
+#     Rust `target` directory, where binary will be built to.
+#     DEFAULT: "target/release"
 #   $RELEASE_RUST_VERSION
 #     Which rust version to use.
 #     Can be anything that can be passed to `rustup run VERSION`,
@@ -62,7 +65,6 @@ set -e
 
 CARGO_MANIFEST="${ROOT}/Cargo.toml"
 INCLUDE_FILES=()
-RUST_TARGET_DIR="${ROOT}/target/release"
 
 function include_file {
     local filepath="${ROOT}/${1}"
@@ -178,9 +180,6 @@ function run {
     filename="$( get_filename )"
     spacing="${spacing_strong}${spacing_strong}"
 
-    RELEASE_EXE_NAME="${RELEASE_EXE_NAME/.exe/}"
-    RELEASE_EXE_NAME_OUTPUT="${RELEASE_EXE_NAME_OUTPUT/.exe/}"
-
     build_release "$@"
 
     msg_strong "Created release $( colored "$COLOR_CODE" "${RELEASE_DIR}/${filename}.zip" )"
@@ -202,7 +201,7 @@ function build_release {
     mkdir "$target_dir"
 
     msg "${prev_spacing}Copying executable and files..."
-    try_run "cp ${RUST_TARGET_DIR}/${RELEASE_EXE_NAME} ${target_dir}/${RELEASE_EXE_NAME_OUTPUT}"
+    try_run "cp ${RELEASE_RUST_TARGET_DIR}/${RELEASE_EXE_NAME} ${target_dir}/${RELEASE_EXE_NAME_OUTPUT}"
     try_run "cp ${INCLUDE_FILES[*]} $target_dir";
     spacing="$prev_spacing"
 
@@ -229,6 +228,7 @@ function build_release {
 [ -z "$RELEASE_EXE_NAME" ]           && RELEASE_EXE_NAME="pong-cli"
 [ -z "$RELEASE_EXE_NAME_OUTPUT" ]    && RELEASE_EXE_NAME_OUTPUT="${RELEASE_EXE_NAME}"
 [ -z "$RELEASE_RUST_VERSION" ]       && RELEASE_RUST_VERSION="1.38.0"
+[ -z "$RELEASE_RUST_TARGET_DIR" ]    && RELEASE_RUST_TARGET_DIR="${ROOT}/target/release"
 [ -z "$RELEASE_FEATURES" ]           && RELEASE_FEATURES=""
 [ -z "$RELEASE_PRINT_CARGO_STDERR" ] && RELEASE_PRINT_CARGO_STDERR=""
 [ -z "$RELEASE_INCLUDE_FILES" ]      && RELEASE_INCLUDE_FILES=""
