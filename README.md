@@ -16,7 +16,8 @@ __TODO:__ See [issue #2][issue-settings], then publish to crates.io
 Binaries for Linux and Windows are available from the [releases] GitHub page.  
 From there, simply download the `.zip` file for your platform,  
 extract the archive and run the executable:  
-- `pong-cli` for Linux
+- `pong-cli` for Linux (from terminal),  
+  or double-click the `PongCLI.desktop` file from your GUI file-manager
 - `pong-cli.exe` for Windows
 
 ### From source
