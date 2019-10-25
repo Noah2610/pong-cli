@@ -88,15 +88,20 @@
     ),
 
     /// Visual representation of the game; which characters to use for which objects.
-    /// For a list of available color values, see here:
-    ///   https://github.com/Noah2610/pong-cli/blob/master/src/color.rs#L9
-    /// The `fg_color` and `bg_color` fields may be ommited to not colorize that character.
-    /// The game must be built with the `style` feature for the color fields to work;
-    /// color settings will be ignored otherwise.
-    /// Note that colors may slow-down the rendering of the game.
+    /// All fields in the `style` sections may be ommited.
+    /// The game must be built with the `style` feature for the style fields to work.
+    /// Note that styles may slow-down the rendering of the game.
+    /// For a list of available `fg_color` and `bg_color` values, see here:
+    ///   https://docs.rs/crossterm/0.12.1/crossterm/style/enum.Color.html#variants
+    /// For a list of available `attrs` values, see here:
+    ///   https://docs.rs/crossterm/0.12.1/crossterm/enum.Attribute.html#variants
     chars: (
         empty: (
             character: ' ',
+            // character: '·',
+            // style: (
+            //     attrs: [Dim],
+            // ),
         ),
         paddle: (
             character: '#',
@@ -115,11 +120,12 @@
         score: (
             style: (
                 fg_color: Green,
+                attrs: [Bold],
             ),
         ),
         room: (
             border_horizontal: (
-                character: '-',
+                character: '—',
                 style: (
                     fg_color: DarkGrey,
                     bg_color: DarkGrey,
@@ -133,7 +139,7 @@
                 ),
             ),
             border_corner: (
-                character: '=',
+                character: '+',
                 style: (
                     fg_color: DarkGrey,
                     bg_color: DarkGrey,
