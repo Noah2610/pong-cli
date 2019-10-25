@@ -35,14 +35,7 @@ impl Drawable {
 #[cfg(feature = "style")]
 impl Into<StyledObject<Char>> for &Drawable {
     fn into(self) -> StyledObject<Char> {
-        let mut styled = style(self.character);
-        if let Some(fg_color) = &self.style.fg_color {
-            styled = styled.with(fg_color.into());
-        }
-        if let Some(bg_color) = &self.style.bg_color {
-            styled = styled.on(bg_color.into());
-        }
-        return styled;
+        return self.style.styled_object(self.character);
     }
 }
 

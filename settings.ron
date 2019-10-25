@@ -121,22 +121,22 @@
             border_horizontal: (
                 character: '-',
                 style: (
-                    fg_color: DarkGray,
-                    bg_color: DarkGray,
+                    fg_color: DarkGrey,
+                    bg_color: DarkGrey,
                 ),
             ),
             border_vertical: (
                 character: '|',
                 style: (
-                    fg_color: DarkGray,
-                    bg_color: DarkGray,
+                    fg_color: DarkGrey,
+                    bg_color: DarkGrey,
                 ),
             ),
             border_corner: (
                 character: '=',
                 style: (
-                    fg_color: DarkGray,
-                    bg_color: DarkGray,
+                    fg_color: DarkGrey,
+                    bg_color: DarkGrey,
                 ),
             ),
         ),

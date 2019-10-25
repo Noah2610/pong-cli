@@ -15,13 +15,7 @@ pub struct Score {
 impl fmt::Display for Score {
     #[cfg(feature = "style")]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let mut styled = style(self.score);
-        if let Some(fg_color) = self.style.fg_color.as_ref() {
-            styled = styled.with(fg_color.into());
-        }
-        if let Some(bg_color) = self.style.bg_color.as_ref() {
-            styled = styled.on(bg_color.into());
-        }
+        let styled = self.style.styled_object(self.score);
         write!(f, "{}", styled)
     }
 

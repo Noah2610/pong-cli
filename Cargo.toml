@@ -22,7 +22,7 @@ serde = "1.0.101"
 [dependencies.crossterm]
 version = "0.12.1"
 default_features = false
-features = ["input", "cursor", "screen"]
+features = ["input", "cursor", "screen", "serde"]
 
 [dependencies.specs]
 version  = "0.15.1"
