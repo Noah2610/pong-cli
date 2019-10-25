@@ -50,3 +50,4 @@ Use `--no-default-features` to disable all features when building with `cargo bu
 [specs]:          https://github.com/amethyst/specs
 [settings.ron]:   https://github.com/Noah2610/pong-cli/blob/master/settings.ron
 [issue-settings]: https://github.com/Noah2610/pong-cli/issues/2
+[releases]:       https://github.com/Noah2610/pong-cli/releases
