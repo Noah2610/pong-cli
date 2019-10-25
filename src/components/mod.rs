@@ -26,9 +26,9 @@ pub mod component_prelude {
         VecStorage,
     };
 
-    #[cfg(feature = "style")]
-    pub use crate::color::{Color, CrossColor};
     pub use crate::geo::prelude::*;
+    #[cfg(feature = "style")]
+    pub use crate::style::prelude::*;
 }
 
 mod ball;

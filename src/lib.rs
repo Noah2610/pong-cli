@@ -6,8 +6,6 @@ extern crate ron;
 extern crate serde;
 extern crate specs;
 
-#[cfg(feature = "style")]
-mod color;
 mod components;
 mod geo;
 mod helpers;
@@ -16,6 +14,8 @@ mod pong;
 mod resources;
 mod round_down;
 mod settings;
+#[cfg(feature = "style")]
+mod style;
 mod systems;
 
 pub fn run() {

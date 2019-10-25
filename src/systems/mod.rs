@@ -32,13 +32,13 @@ mod system_prelude {
         WriteStorage,
     };
 
-    #[cfg(feature = "style")]
-    pub use crate::color::{Color, CrossColor};
     pub use crate::components::prelude::*;
     pub use crate::geo::prelude::*;
     pub use crate::helpers::*;
     pub use crate::resources::prelude::*;
     pub use crate::settings::prelude::*;
+    #[cfg(feature = "style")]
+    pub use crate::style::prelude::*;
 }
 
 mod ball_bounce;

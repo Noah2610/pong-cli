@@ -2,12 +2,7 @@
 use std::convert::Into;
 use std::fmt;
 
-#[cfg(feature = "style")]
-use crossterm::{style, StyledObject};
-
 use super::component_prelude::*;
-#[cfg(feature = "style")]
-use crate::settings::prelude::StyleData;
 
 pub type Char = char;
 
@@ -51,16 +46,14 @@ impl Into<StyledObject<Char>> for &Drawable {
     }
 }
 
-#[cfg(feature = "style")]
 impl fmt::Display for Drawable {
+    #[cfg(feature = "style")]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let d: StyledObject<Char> = self.into();
         write!(f, "{}", d)
     }
-}
 
-#[cfg(not(feature = "style"))]
-impl fmt::Display for Drawable {
+    #[cfg(not(feature = "style"))]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.character)
     }

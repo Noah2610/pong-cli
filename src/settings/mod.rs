@@ -3,7 +3,7 @@ pub mod prelude {
         BallSpawnDirectionX,
         BallSpawnDirectionY,
     };
-    pub use super::char_data::{SettingsCharData, StyleData};
+    pub use super::char_data::SettingsCharData;
     pub use super::Settings;
     pub use super::SettingsBall;
     pub use super::SettingsCharRoom;

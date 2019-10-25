@@ -2,6 +2,8 @@ use std::fmt;
 
 use crate::geo::Side;
 use crate::settings::prelude::*;
+#[cfg(feature = "style")]
+use crate::style::prelude::*;
 
 #[derive(Default, Clone)]
 pub struct Score {
@@ -13,8 +15,6 @@ pub struct Score {
 impl fmt::Display for Score {
     #[cfg(feature = "style")]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        use crossterm::style;
-
         let mut styled = style(self.score);
         if let Some(fg_color) = self.style.fg_color.as_ref() {
             styled = styled.with(fg_color.into());
