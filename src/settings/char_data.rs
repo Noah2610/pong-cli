@@ -23,14 +23,14 @@ impl SettingsCharData {
 #[cfg(feature = "style")]
 impl Into<StyledObject<Char>> for &SettingsCharData {
     fn into(self) -> StyledObject<Char> {
-        return self.style().styled_object(self.character());
+        self.style().styled_object(self.character())
     }
 }
 
 #[cfg(feature = "style")]
 impl Into<StyledObject<String>> for &SettingsCharData {
     fn into(self) -> StyledObject<String> {
-        return self.style().styled_object(self.character().to_string());
+        self.style().styled_object(self.character().to_string())
     }
 }
 

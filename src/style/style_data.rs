@@ -34,14 +34,10 @@ impl StyleData {
     where
         T: fmt::Display + Clone,
     {
-        let mut styled = style(value);
-        if let Some(fg_color) = self.fg_color {
-            styled = styled.with(fg_color);
+        StyledObject {
+            object_style: self.into(),
+            content:      value,
         }
-        if let Some(bg_color) = self.bg_color {
-            styled = styled.on(bg_color);
-        }
-        styled
     }
 }
 

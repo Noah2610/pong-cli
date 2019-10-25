@@ -32,7 +32,7 @@ impl Drawable {
 #[cfg(feature = "style")]
 impl Into<StyledObject<Char>> for &Drawable {
     fn into(self) -> StyledObject<Char> {
-        return self.style.styled_object(self.character);
+        self.style.styled_object(self.character)
     }
 }
 
