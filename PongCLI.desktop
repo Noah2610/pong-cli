@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=PongCLI
+Comment=Play pong from your terminal!
+TryExec=./pong-cli
+Exec=./pong-cli
+Terminal=true
+Categories=Game;

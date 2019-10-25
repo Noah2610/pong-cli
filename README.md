@@ -17,7 +17,6 @@ Binaries for Linux and Windows are available from the [releases] GitHub page.
 From there, simply download the `.zip` file for your platform,  
 extract the archive and run the executable:  
 - `pong-cli` for Linux
-  __TODO:__ Add `.desktop` file for Linux file manager GUIs
 - `pong-cli.exe` for Windows
 
 ### From source

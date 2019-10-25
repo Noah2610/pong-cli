@@ -5,3 +5,4 @@ _ignore
 /bin/util.sh
 /logs
 *.log
+/releases
