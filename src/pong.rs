@@ -57,9 +57,6 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
     let mut world = World::new();
     let dispatcher = new_dispatcher();
 
-    let cursor = TerminalCursor::new();
-    cursor.hide().unwrap();
-
     // Register components
     world.register::<Paddle>();
     world.register::<Position>();
@@ -74,6 +71,8 @@ fn setup<'a, 'b>() -> (World, Dispatcher<'a, 'b>) {
 
     // Insert resources
     let settings = load_settings();
+    let cursor = TerminalCursor::new();
+    cursor.hide().unwrap();
     world.insert(Deltatime::default());
     world.insert(InputManager::new(settings.bindings.clone()));
     world.insert(AlternateScreen::to_alternate(RAW_MODE).unwrap());
@@ -228,12 +227,4 @@ fn create_vertical_walls(world: &mut World) {
         .with(Size::new(size.0, size.1))
         .with(Collision::new(CollisionType::Wall(Side::Bottom)))
         .build();
-}
-
-fn load_settings() -> Settings {
-    use std::fs::File;
-
-    let file =
-        File::open("./settings.ron").expect("Couldn't open settings.ron file");
-    ron::de::from_reader(file).expect("Failed parsing settings.ron file")
 }

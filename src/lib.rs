@@ -1,4 +1,5 @@
 extern crate crossterm;
+extern crate dirs;
 #[cfg(feature = "random")]
 extern crate rand;
 extern crate ron;
