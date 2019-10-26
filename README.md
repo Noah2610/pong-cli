@@ -9,8 +9,10 @@ or let _two_ AIs fight it out!
 Everything is configurable, see the [Configuration][readme-configuration] section.
 
 ## Installation
-### From crates.io
-__TODO:__ See [issue #2][issue-settings], then publish to crates.io
+### From [crates.io][crates.io]
+```
+cargo install pong-cli
+```
 
 ### Binaries
 Binaries for Linux and Windows are available from the [releases] GitHub page.  
@@ -77,3 +79,4 @@ Use `--no-default-features` to disable all features when building with `cargo bu
 [issue-settings]:       https://github.com/Noah2610/pong-cli/issues/2
 [releases]:             https://github.com/Noah2610/pong-cli/releases
 [readme-configuration]: #configuration
+[crates.io]:            https://crates.io/crates/pong-cli
