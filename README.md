@@ -52,7 +52,7 @@ On Linux, you can enter the following (if you have `curl` installed), to
 automatically create the proper directory/directories and download the latest `settings.ron` file:
 ```
 mkdir -p ~/.config/pong-cli
-curl https://github.com/Noah2610/pong-cli/blob/master/settings.ron > ~/.config/pong-cli/settings.ron
+curl https://raw.githubusercontent.com/Noah2610/pong-cli/master/settings.ron > ~/.config/pong-cli/settings.ron
 ```
 
 Once the `settings.ron` file is in place, you can edit it as you wish.  
