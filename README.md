@@ -29,9 +29,13 @@ Clone the repository with ...
 git clone https://github.com/Noah2610/pong-cli
 ```
 `cd` into the project's root with `cd pong-cli`,  
-then you can build and run the game with ...
+Then you can build and run the game with ...
 ```
 cargo run --release
+```
+You can also install it with `cargo`, so it is available everywhere from the command-line ...
+```
+cargo install --path .
 ```
 
 ## Configuration
