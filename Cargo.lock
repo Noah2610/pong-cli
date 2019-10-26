@@ -392,7 +392,7 @@ dependencies = [
 
 [[package]]
 name = "pong-cli"
-version = "0.3.0"
+version = "1.0.0"
 dependencies = [
  "crossterm 0.12.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "dirs 2.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
