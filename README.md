@@ -2,6 +2,20 @@
 A CLI pong clone.  
 Uses the [`crossterm`][crossterm] and [`specs`][specs] crates.
 
+---
+
+- [Asciicasts](#asciicasts)
+- [Description](#description)
+- [Installation](#installation)
+  - [From crates.io](#from-cratesio)
+  - [Binaries](#binaries)
+  - [From source](#from-source)
+- [Configuration](#configuration)
+- [Features](#features)
+- [License](#license)
+
+---
+
 ## Asciicasts
 <p align="center">
   <a href="https://asciinema.org/a/277218" target="_blank">
