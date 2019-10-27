@@ -2,6 +2,22 @@
 A CLI pong clone.  
 Uses the [`crossterm`][crossterm] and [`specs`][specs] crates.
 
+## Asciicasts
+<p align="center">
+  <a href="https://asciinema.org/a/277218" target="_blank">
+    <img
+     title="player vs AI"
+     src="https://asciinema.org/a/277218.svg"
+     width="300px" />
+  </a>
+  <a href="https://asciinema.org/a/277219" target="_blank">
+    <img
+    title="player vs AI with 3 balls"
+    src="https://asciinema.org/a/277219.svg"
+    width="300px" />
+  </a>
+</p>
+
 ## Description
 Play __pong__ from your terminal!  
 Play against a ball-chasing AI opponent,  locally against another player,  
@@ -10,8 +26,14 @@ Everything is configurable, see the [Configuration][readme-configuration] sectio
 
 ## Installation
 ### From [crates.io][crates.io]
+You'll need to have `cargo` and `rust` version __1.38.0__ or higher installed.  
+Download, build, and install from [crates.io][crates.io] with ...
 ```
 cargo install pong-cli
+```
+Then you should be able to run the game from anywhere with ...
+```
+pong-cli
 ```
 
 ### Binaries
