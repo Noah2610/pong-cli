@@ -1,0 +1,30 @@
+#!/bin/bash
+# Wrapper script for bin/build-release
+# Builds Linux and Windows executables with bin/build-release
+
+# shellcheck source=./share.sh
+_dir="$( dirname "$0" )"
+source "${_dir}/share.sh"
+unset _dir
+
+WINDOWS_RUST_TARGET="x86_64-pc-windows-gnu"
+BUILD_SCRIPT="${ROOT}/bin/build-release"
+
+check_file "$BUILD_SCRIPT"
+
+export RELEASE_PRINT_CARGO_STDERR=
+
+msg_strong "CREATING LINUX RELEASE"
+RELEASE_FILE_NAME="pong-cli-linux" \
+    RELEASE_INCLUDE_FILES="README.md LICENSE settings.ron PongCLI.desktop" \
+    RELEASE_EXE_NAME="pong-cli" \
+    ${BUILD_SCRIPT}
+
+echo
+
+msg_strong "CREATING WINDOWS RELEASE"
+RELEASE_FILE_NAME="pong-cli-windows" \
+    RELEASE_INCLUDE_FILES="README.md LICENSE settings.ron" \
+    RELEASE_EXE_NAME="pong-cli.exe" \
+    RELEASE_RUST_TARGET_DIR="target/x86_64-pc-windows-gnu/release" \
+    ${BUILD_SCRIPT} --target "$WINDOWS_RUST_TARGET"

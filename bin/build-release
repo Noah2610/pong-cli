@@ -170,7 +170,6 @@ function run {
     esac
 
     for file_to_include in ${RELEASE_INCLUDE_FILES[*]}; do
-        echo "INCLUDE: $file_to_include"
         include_file "$file_to_include"
     done
 
