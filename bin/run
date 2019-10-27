@@ -24,6 +24,6 @@ function run {
     #          https://stackoverflow.com/a/692407/10927893
 }
 
-[ -z "$RUN_FEATURES" ] && export RUN_FEATURES="nightly"
+[ -z "$RUN_FEATURES" ] && RUN_FEATURES="nightly"
 
 run "$@"

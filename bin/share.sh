@@ -33,7 +33,7 @@ function cargo_cmd {
     fi
 }
 
-RUST_VERSION="nightly-2019-08-13"
+[ -z "$RUST_VERSION" ] && RUST_VERSION="nightly-2019-08-13"
 _logdir="${ROOT}/logs"
 [ -d "$_logdir" ] || mkdir -p "$_logdir"
 LOGFILE="${_logdir}/$( basename "$0" ).log"
