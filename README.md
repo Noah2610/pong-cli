@@ -77,7 +77,7 @@ cargo install --path .
 ```
 
 ## Configuration
-Configurations are read from a `ron` file at one of the following locations (in order):
+Settings are read from a `.ron` file at one of the following locations (checked in order):
 - `./settings.ron`
 - `./pong-cli.ron`
 - `$HOME/.pong-cli.ron`
@@ -85,16 +85,24 @@ Configurations are read from a `ron` file at one of the following locations (in 
   `$HOME/AppData/Roaming/pong-cli/settings.ron` (for Windows)  
   `$HOME/Library/Preferences/pong-cli/settings.ron` (for MacOS)
 
-To start, copy the default [`settings.ron`][settings.ron] file to one of these locations.  
-On Linux, you can enter the following (if you have `curl` installed), to  
-automatically create the proper directory/directories and download the latest `settings.ron` file:
-```
-mkdir -p ~/.config/pong-cli
-curl https://raw.githubusercontent.com/Noah2610/pong-cli/master/settings.ron > ~/.config/pong-cli/settings.ron
-```
+To start, copy the default [`settings.ron`][settings.ron] file to one of these locations.
 
 Once the `settings.ron` file is in place, you can edit it as you wish.  
 The file itself is commented, so just open it to see all available settings.
+
+<details>
+  <summary>
+  Download with `curl` on Linux
+  </summary>
+
+  On Linux, you can enter the following (if you have `curl` installed), to  
+  automatically create the proper directory/directories and download the latest `settings.ron` file:
+
+  ```
+  mkdir -p ~/.config/pong-cli
+  curl https://raw.githubusercontent.com/Noah2610/pong-cli/master/settings.ron > ~/.config/pong-cli/settings.ron
+  ```
+</details>
 
 ## Features
 | Feature   | Default? | Description |
