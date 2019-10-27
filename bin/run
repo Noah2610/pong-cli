@@ -19,7 +19,7 @@ unset _dir
 function run {
     check "tee"
 
-    cargo_cmd "run" "$* 2> >(tee -a $LOGFILE >&1)"
+    cargo_cmd "run" "$* 2> >(tee -a $LOGFILE >&1); read"
     #                   ^^^^^^^^^^^^^^^^^^^^^^^^^
     #          https://stackoverflow.com/a/692407/10927893
 }

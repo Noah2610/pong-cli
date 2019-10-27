@@ -15,22 +15,53 @@ pub fn run() {
 
     panic::set_hook(Box::new(on_panic));
 
-    let (mut world, mut dispatcher) = setup();
+    let final_scores;
 
-    world.insert(Running(true));
+    // World is created in scope, so all it's resources are dropped when game is stopped.
+    // This prevents some terminal stdout issues.
+    {
+        let (mut world, mut dispatcher) = setup();
 
-    let sleep_duration = Duration::from_millis(
-        world.read_resource::<Settings>().update_delay_ms,
-    );
+        world.insert(Running(true));
 
-    while world.read_resource::<Running>().0 {
-        dispatcher.dispatch(&mut world);
-        world.maintain();
-        flush_stdout();
-        sleep(sleep_duration);
+        let sleep_duration = Duration::from_millis(
+            world.read_resource::<Settings>().update_delay_ms,
+        );
+
+        while world.read_resource::<Running>().0 {
+            dispatcher.dispatch(&mut world);
+            world.maintain();
+            flush_stdout();
+            sleep(sleep_duration);
+        }
+
+        final_scores = (&*world.read_resource::<Scores>()).clone();
+        cleanup(Some(&world));
     }
 
-    cleanup(Some(world));
+    print_scores(&final_scores);
+}
+
+fn print_scores(scores: &Scores) {
+    #[cfg(feature = "style")]
+    use crossterm::{style, Attribute, Color};
+
+    const PADDING: &str = "  ";
+
+    #[cfg(feature = "style")]
+    let header_msg = style("Final Scores")
+        .with(Color::Blue)
+        .attr(Attribute::Bold)
+        .attr(Attribute::Underlined);
+
+    #[cfg(not(feature = "style"))]
+    let header_msg = "Final Scores";
+
+    println!(
+        "{}\n{}",
+        header_msg,
+        format!("{}", scores).replace("\n", format!("{}\n", PADDING).as_str())
+    );
 }
 
 fn on_panic(panic_info: &panic::PanicInfo) {
@@ -38,16 +69,16 @@ fn on_panic(panic_info: &panic::PanicInfo) {
     eprintln!("{:#}", panic_info);
 }
 
-fn cleanup(world: Option<World>) {
+fn cleanup(world: Option<&World>) {
     if let Some(world) = world {
-        world.read_resource::<AlternateScreen>().to_main().unwrap();
         world.read_resource::<TerminalCursor>().show().unwrap();
+        world.read_resource::<AlternateScreen>().to_main().unwrap();
     } else {
         use crossterm::{execute, LeaveAlternateScreen};
         use std::io::{stdout, Write};
 
-        execute!(stdout(), LeaveAlternateScreen).unwrap();
         TerminalCursor::new().show().unwrap();
+        execute!(stdout(), LeaveAlternateScreen).unwrap();
     }
 }
 

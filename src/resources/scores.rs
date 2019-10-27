@@ -77,3 +77,13 @@ impl From<&SettingsCharData> for Scores {
         Self::default()
     }
 }
+
+impl fmt::Display for Scores {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            " Left Paddle: {}\nRight Paddle: {}",
+            self.left_paddle, self.right_paddle
+        )
+    }
+}
