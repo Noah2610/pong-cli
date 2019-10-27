@@ -56,7 +56,8 @@ pub fn load_settings() -> Settings {
                     let errmsg = format!(
                         "ERROR: Couldn't parse settings file: \
                          reading:\n{}\n{:#?}\nUsing default settings",
-                        path, e,
+                        path.display(),
+                        e,
                     );
                     eprint_and_read_line(errmsg);
                     static_settings()
@@ -76,7 +77,8 @@ pub fn load_settings() -> Settings {
                 let errmsg = format!(
                     "ERROR: Couldn't open settings file for \
                      reading:\n{}\n{:#?}\nUsing default settings",
-                    path, e,
+                    path.display(),
+                    e,
                 );
                 eprint_and_read_line(errmsg);
                 static_settings()
