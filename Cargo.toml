@@ -16,9 +16,9 @@ categories = ["games", "command-line-utilities"]
 license = "MIT"
 
 [dependencies]
-dirs  = "2.0.2"
-ron   = "0.5.1"
-serde = "1.0.101"
+dirs = "4.0.0"
+ron = "0.7.0"
+serde = "1.0.136"
 
 [dependencies.crossterm]
 version = "0.12.1"

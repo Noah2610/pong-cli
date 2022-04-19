@@ -22,7 +22,7 @@ pub fn load_settings() -> Settings {
     // First try to find a settings.ron file
     let home_dir = dirs::home_dir();
     let config_dir = dirs::config_dir();
-    let path_opt = SETTINGS_FILE_LOCATIONS.into_iter().find_map(|path_str| {
+    let path_opt = SETTINGS_FILE_LOCATIONS.iter().find_map(|path_str| {
         let mut path_s = path_str.to_string();
         if let Some(Some(home)) = home_dir.as_ref().map(|d| d.to_str()) {
             path_s = path_s.replace(HOME_DIR_REPLACE, home);
